@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kkrepo.blog.repository.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.kkrepo.blog.domain.Article">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="origin" jdbcType="VARCHAR" property="origin" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kkrepo.blog.domain.Article">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="content_md" jdbcType="LONGVARCHAR" property="contentMd" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content, content_md
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kkrepo.blog.domain.ArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kkrepo.blog.domain.ArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExampleSelective" parameterType="map" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    select
+    <if test="example.distinct">
+      distinct
+    </if>
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+      </when>
+      <otherwise>
+        id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+          update_time, content, content_md
+      </otherwise>
+    </choose>
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPrimaryKeySelective" parameterType="map" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    select
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+      </when>
+      <otherwise>
+        id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+          update_time, content, content_md
+      </otherwise>
+    </choose>
+    from tb_article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kkrepo.blog.domain.ArticleExample">
+    delete from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kkrepo.blog.domain.Article" useGeneratedKeys="true" keyProperty="id">
+    insert into tb_article (id, title, description, 
+      cover, author, type, 
+      origin, state, publish_time, 
+      create_time, update_time, content, 
+      content_md)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{origin,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}, 
+      #{contentMd,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach close=")" collection="selective" item="column" open="(" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="record.id != null">
+            id,
+          </if>
+          <if test="record.title != null">
+            title,
+          </if>
+          <if test="record.description != null">
+            description,
+          </if>
+          <if test="record.cover != null">
+            cover,
+          </if>
+          <if test="record.author != null">
+            author,
+          </if>
+          <if test="record.type != null">
+            type,
+          </if>
+          <if test="record.origin != null">
+            origin,
+          </if>
+          <if test="record.state != null">
+            state,
+          </if>
+          <if test="record.publishTime != null">
+            publish_time,
+          </if>
+          <if test="record.createTime != null">
+            create_time,
+          </if>
+          <if test="record.updateTime != null">
+            update_time,
+          </if>
+          <if test="record.content != null">
+            content,
+          </if>
+          <if test="record.contentMd != null">
+            content_md,
+          </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides="," />
+      </otherwise>
+    </choose>
+    values
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach close=")" collection="selective" item="column" open="(" separator=",">
+          #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="record.id != null">
+            #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.title != null">
+            #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.description != null">
+            #{record.description,jdbcType=VARCHAR},
+          </if>
+          <if test="record.cover != null">
+            #{record.cover,jdbcType=VARCHAR},
+          </if>
+          <if test="record.author != null">
+            #{record.author,jdbcType=VARCHAR},
+          </if>
+          <if test="record.type != null">
+            #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.origin != null">
+            #{record.origin,jdbcType=VARCHAR},
+          </if>
+          <if test="record.state != null">
+            #{record.state,jdbcType=VARCHAR},
+          </if>
+          <if test="record.publishTime != null">
+            #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createTime != null">
+            #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.content != null">
+            #{record.content,jdbcType=LONGVARCHAR},
+          </if>
+          <if test="record.contentMd != null">
+            #{record.contentMd,jdbcType=LONGVARCHAR},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+  </insert>
+  <select id="countByExample" parameterType="com.kkrepo.blog.domain.ArticleExample" resultType="java.lang.Long">
+    select count(*) from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    update tb_article
+    SET
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim suffixOverrides=",">
+          <if test="record.id != null">
+            id = #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.title != null">
+            title = #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.description != null">
+            description = #{record.description,jdbcType=VARCHAR},
+          </if>
+          <if test="record.cover != null">
+            cover = #{record.cover,jdbcType=VARCHAR},
+          </if>
+          <if test="record.author != null">
+            author = #{record.author,jdbcType=VARCHAR},
+          </if>
+          <if test="record.type != null">
+            type = #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.origin != null">
+            origin = #{record.origin,jdbcType=VARCHAR},
+          </if>
+          <if test="record.state != null">
+            state = #{record.state,jdbcType=VARCHAR},
+          </if>
+          <if test="record.publishTime != null">
+            publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createTime != null">
+            create_time = #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.content != null">
+            content = #{record.content,jdbcType=LONGVARCHAR},
+          </if>
+          <if test="record.contentMd != null">
+            content_md = #{record.contentMd,jdbcType=LONGVARCHAR},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_article
+    set id = #{record.id,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      origin = #{record.origin,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      content_md = #{record.contentMd,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_article
+    set id = #{record.id,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      origin = #{record.origin,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    update tb_article
+    SET
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim suffixOverrides=",">
+          <if test="record.title != null">
+            title = #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.description != null">
+            description = #{record.description,jdbcType=VARCHAR},
+          </if>
+          <if test="record.cover != null">
+            cover = #{record.cover,jdbcType=VARCHAR},
+          </if>
+          <if test="record.author != null">
+            author = #{record.author,jdbcType=VARCHAR},
+          </if>
+          <if test="record.type != null">
+            type = #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.origin != null">
+            origin = #{record.origin,jdbcType=VARCHAR},
+          </if>
+          <if test="record.state != null">
+            state = #{record.state,jdbcType=VARCHAR},
+          </if>
+          <if test="record.publishTime != null">
+            publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createTime != null">
+            create_time = #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.content != null">
+            content = #{record.content,jdbcType=LONGVARCHAR},
+          </if>
+          <if test="record.contentMd != null">
+            content_md = #{record.contentMd,jdbcType=LONGVARCHAR},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+    where id = #{record.id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kkrepo.blog.domain.Article">
+    update tb_article
+    set title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      origin = #{origin,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR},
+      content_md = #{contentMd,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kkrepo.blog.domain.Article">
+    update tb_article
+    set title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      origin = #{origin,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectOneByExample" parameterType="com.kkrepo.blog.domain.ArticleExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <select id="selectOneByExampleWithBLOBs" parameterType="com.kkrepo.blog.domain.ArticleExample" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <select id="selectOneByExampleSelective" parameterType="map" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    select
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+      </when>
+      <otherwise>
+        id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+          update_time, content, content_md
+      </otherwise>
+    </choose>
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+    limit 1
+  </select>
+  <insert id="batchInsert" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article
+    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+      update_time, content, content_md)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+        #{item.cover,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
+        #{item.origin,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.publishTime,jdbcType=TIMESTAMP}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.content,jdbcType=LONGVARCHAR}, 
+        #{item.contentMd,jdbcType=LONGVARCHAR})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id'.toString() == column.value">
+          #{item.id,jdbcType=BIGINT}
+        </if>
+        <if test="'title'.toString() == column.value">
+          #{item.title,jdbcType=VARCHAR}
+        </if>
+        <if test="'description'.toString() == column.value">
+          #{item.description,jdbcType=VARCHAR}
+        </if>
+        <if test="'cover'.toString() == column.value">
+          #{item.cover,jdbcType=VARCHAR}
+        </if>
+        <if test="'author'.toString() == column.value">
+          #{item.author,jdbcType=VARCHAR}
+        </if>
+        <if test="'type'.toString() == column.value">
+          #{item.type,jdbcType=INTEGER}
+        </if>
+        <if test="'origin'.toString() == column.value">
+          #{item.origin,jdbcType=VARCHAR}
+        </if>
+        <if test="'state'.toString() == column.value">
+          #{item.state,jdbcType=VARCHAR}
+        </if>
+        <if test="'publish_time'.toString() == column.value">
+          #{item.publishTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'create_time'.toString() == column.value">
+          #{item.createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_time'.toString() == column.value">
+          #{item.updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'content'.toString() == column.value">
+          #{item.content,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="'content_md'.toString() == column.value">
+          #{item.contentMd,jdbcType=LONGVARCHAR}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+  <insert id="upsertSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach close=")" collection="selective" item="column" open="(" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="record.id != null">
+            id,
+          </if>
+          <if test="record.title != null">
+            title,
+          </if>
+          <if test="record.description != null">
+            description,
+          </if>
+          <if test="record.cover != null">
+            cover,
+          </if>
+          <if test="record.author != null">
+            author,
+          </if>
+          <if test="record.type != null">
+            type,
+          </if>
+          <if test="record.origin != null">
+            origin,
+          </if>
+          <if test="record.state != null">
+            state,
+          </if>
+          <if test="record.publishTime != null">
+            publish_time,
+          </if>
+          <if test="record.createTime != null">
+            create_time,
+          </if>
+          <if test="record.updateTime != null">
+            update_time,
+          </if>
+          <if test="record.content != null">
+            content,
+          </if>
+          <if test="record.contentMd != null">
+            content_md,
+          </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides="," />
+      </otherwise>
+    </choose>
+    values
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach close=")" collection="selective" item="column" open="(" separator=",">
+          #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="record.id != null">
+            #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.title != null">
+            #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.description != null">
+            #{record.description,jdbcType=VARCHAR},
+          </if>
+          <if test="record.cover != null">
+            #{record.cover,jdbcType=VARCHAR},
+          </if>
+          <if test="record.author != null">
+            #{record.author,jdbcType=VARCHAR},
+          </if>
+          <if test="record.type != null">
+            #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.origin != null">
+            #{record.origin,jdbcType=VARCHAR},
+          </if>
+          <if test="record.state != null">
+            #{record.state,jdbcType=VARCHAR},
+          </if>
+          <if test="record.publishTime != null">
+            #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createTime != null">
+            #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.content != null">
+            #{record.content,jdbcType=LONGVARCHAR},
+          </if>
+          <if test="record.contentMd != null">
+            #{record.contentMd,jdbcType=LONGVARCHAR},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+    on duplicate key update 
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim suffixOverrides=",">
+          <if test="record.id != null">
+            id = #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.title != null">
+            title = #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.description != null">
+            description = #{record.description,jdbcType=VARCHAR},
+          </if>
+          <if test="record.cover != null">
+            cover = #{record.cover,jdbcType=VARCHAR},
+          </if>
+          <if test="record.author != null">
+            author = #{record.author,jdbcType=VARCHAR},
+          </if>
+          <if test="record.type != null">
+            type = #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.origin != null">
+            origin = #{record.origin,jdbcType=VARCHAR},
+          </if>
+          <if test="record.state != null">
+            state = #{record.state,jdbcType=VARCHAR},
+          </if>
+          <if test="record.publishTime != null">
+            publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createTime != null">
+            create_time = #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.content != null">
+            content = #{record.content,jdbcType=LONGVARCHAR},
+          </if>
+          <if test="record.contentMd != null">
+            content_md = #{record.contentMd,jdbcType=LONGVARCHAR},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+  </insert>
+  <update id="upsertByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    update tb_article
+    set
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim suffixOverrides=",">
+          <if test="record.id != null">
+            id = #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.title != null">
+            title = #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.description != null">
+            description = #{record.description,jdbcType=VARCHAR},
+          </if>
+          <if test="record.cover != null">
+            cover = #{record.cover,jdbcType=VARCHAR},
+          </if>
+          <if test="record.author != null">
+            author = #{record.author,jdbcType=VARCHAR},
+          </if>
+          <if test="record.type != null">
+            type = #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.origin != null">
+            origin = #{record.origin,jdbcType=VARCHAR},
+          </if>
+          <if test="record.state != null">
+            state = #{record.state,jdbcType=VARCHAR},
+          </if>
+          <if test="record.publishTime != null">
+            publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createTime != null">
+            create_time = #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.content != null">
+            content = #{record.content,jdbcType=LONGVARCHAR},
+          </if>
+          <if test="record.contentMd != null">
+            content_md = #{record.contentMd,jdbcType=LONGVARCHAR},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    ;
+    insert into tb_article
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach close=")" collection="selective" item="column" open="(" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="record.id != null">
+            id,
+          </if>
+          <if test="record.title != null">
+            title,
+          </if>
+          <if test="record.description != null">
+            description,
+          </if>
+          <if test="record.cover != null">
+            cover,
+          </if>
+          <if test="record.author != null">
+            author,
+          </if>
+          <if test="record.type != null">
+            type,
+          </if>
+          <if test="record.origin != null">
+            origin,
+          </if>
+          <if test="record.state != null">
+            state,
+          </if>
+          <if test="record.publishTime != null">
+            publish_time,
+          </if>
+          <if test="record.createTime != null">
+            create_time,
+          </if>
+          <if test="record.updateTime != null">
+            update_time,
+          </if>
+          <if test="record.content != null">
+            content,
+          </if>
+          <if test="record.contentMd != null">
+            content_md,
+          </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides="," />
+      </otherwise>
+    </choose>
+    select
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim suffixOverrides=",">
+          <if test="record.id != null">
+            #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.title != null">
+            #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.description != null">
+            #{record.description,jdbcType=VARCHAR},
+          </if>
+          <if test="record.cover != null">
+            #{record.cover,jdbcType=VARCHAR},
+          </if>
+          <if test="record.author != null">
+            #{record.author,jdbcType=VARCHAR},
+          </if>
+          <if test="record.type != null">
+            #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.origin != null">
+            #{record.origin,jdbcType=VARCHAR},
+          </if>
+          <if test="record.state != null">
+            #{record.state,jdbcType=VARCHAR},
+          </if>
+          <if test="record.publishTime != null">
+            #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createTime != null">
+            #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.content != null">
+            #{record.content,jdbcType=LONGVARCHAR},
+          </if>
+          <if test="record.contentMd != null">
+            #{record.contentMd,jdbcType=LONGVARCHAR},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+    from dual where not exists
+    (
+    select 1 from tb_article
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    )
+  </update>
+  <insert id="upsert" parameterType="com.kkrepo.blog.domain.Article">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article
+    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+      update_time)
+    values
+    (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{origin,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    on duplicate key update 
+    id = #{id,jdbcType=BIGINT}, 
+    title = #{title,jdbcType=VARCHAR}, 
+    description = #{description,jdbcType=VARCHAR}, 
+    cover = #{cover,jdbcType=VARCHAR}, 
+    author = #{author,jdbcType=VARCHAR}, 
+    type = #{type,jdbcType=INTEGER}, 
+    origin = #{origin,jdbcType=VARCHAR}, 
+    state = #{state,jdbcType=VARCHAR}, 
+    publish_time = #{publishTime,jdbcType=TIMESTAMP}, 
+    create_time = #{createTime,jdbcType=TIMESTAMP}, 
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
+  </insert>
+  <update id="upsertByExample" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    update tb_article
+    set
+    id = #{record.id,jdbcType=BIGINT}, 
+    title = #{record.title,jdbcType=VARCHAR}, 
+    description = #{record.description,jdbcType=VARCHAR}, 
+    cover = #{record.cover,jdbcType=VARCHAR}, 
+    author = #{record.author,jdbcType=VARCHAR}, 
+    type = #{record.type,jdbcType=INTEGER}, 
+    origin = #{record.origin,jdbcType=VARCHAR}, 
+    state = #{record.state,jdbcType=VARCHAR}, 
+    publish_time = #{record.publishTime,jdbcType=TIMESTAMP}, 
+    create_time = #{record.createTime,jdbcType=TIMESTAMP}, 
+    update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    ;
+    insert into tb_article
+    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+      update_time)
+    select
+    #{record.id,jdbcType=BIGINT}, #{record.title,jdbcType=VARCHAR}, #{record.description,jdbcType=VARCHAR}, 
+      #{record.cover,jdbcType=VARCHAR}, #{record.author,jdbcType=VARCHAR}, #{record.type,jdbcType=INTEGER}, 
+      #{record.origin,jdbcType=VARCHAR}, #{record.state,jdbcType=VARCHAR}, #{record.publishTime,jdbcType=TIMESTAMP}, 
+      #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP}
+      
+    from dual where not exists
+    (
+    select 1 from tb_article
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    )
+  </update>
+  <insert id="upsertWithBLOBs" parameterType="com.kkrepo.blog.domain.Article">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article
+    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+      update_time, content, content_md)
+    values
+    (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{origin,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}, 
+      #{contentMd,jdbcType=LONGVARCHAR})
+    on duplicate key update 
+    id = #{id,jdbcType=BIGINT}, 
+    title = #{title,jdbcType=VARCHAR}, 
+    description = #{description,jdbcType=VARCHAR}, 
+    cover = #{cover,jdbcType=VARCHAR}, 
+    author = #{author,jdbcType=VARCHAR}, 
+    type = #{type,jdbcType=INTEGER}, 
+    origin = #{origin,jdbcType=VARCHAR}, 
+    state = #{state,jdbcType=VARCHAR}, 
+    publish_time = #{publishTime,jdbcType=TIMESTAMP}, 
+    create_time = #{createTime,jdbcType=TIMESTAMP}, 
+    update_time = #{updateTime,jdbcType=TIMESTAMP}, 
+    content = #{content,jdbcType=LONGVARCHAR}, 
+    content_md = #{contentMd,jdbcType=LONGVARCHAR}
+  </insert>
+  <update id="upsertByExampleWithBLOBs" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    update tb_article
+    set
+    id = #{record.id,jdbcType=BIGINT}, 
+    title = #{record.title,jdbcType=VARCHAR}, 
+    description = #{record.description,jdbcType=VARCHAR}, 
+    cover = #{record.cover,jdbcType=VARCHAR}, 
+    author = #{record.author,jdbcType=VARCHAR}, 
+    type = #{record.type,jdbcType=INTEGER}, 
+    origin = #{record.origin,jdbcType=VARCHAR}, 
+    state = #{record.state,jdbcType=VARCHAR}, 
+    publish_time = #{record.publishTime,jdbcType=TIMESTAMP}, 
+    create_time = #{record.createTime,jdbcType=TIMESTAMP}, 
+    update_time = #{record.updateTime,jdbcType=TIMESTAMP}, 
+    content = #{record.content,jdbcType=LONGVARCHAR}, 
+    content_md = #{record.contentMd,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    ;
+    insert into tb_article
+    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+      update_time, content, content_md)
+    select
+    #{record.id,jdbcType=BIGINT}, #{record.title,jdbcType=VARCHAR}, #{record.description,jdbcType=VARCHAR}, 
+      #{record.cover,jdbcType=VARCHAR}, #{record.author,jdbcType=VARCHAR}, #{record.type,jdbcType=INTEGER}, 
+      #{record.origin,jdbcType=VARCHAR}, #{record.state,jdbcType=VARCHAR}, #{record.publishTime,jdbcType=TIMESTAMP}, 
+      #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP}, 
+      #{record.content,jdbcType=LONGVARCHAR}, #{record.contentMd,jdbcType=LONGVARCHAR}
+      
+    from dual where not exists
+    (
+    select 1 from tb_article
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    )
+  </update>
+  <insert id="batchUpsertSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id'.toString() == column.value">
+          #{item.id,jdbcType=BIGINT}
+        </if>
+        <if test="'title'.toString() == column.value">
+          #{item.title,jdbcType=VARCHAR}
+        </if>
+        <if test="'description'.toString() == column.value">
+          #{item.description,jdbcType=VARCHAR}
+        </if>
+        <if test="'cover'.toString() == column.value">
+          #{item.cover,jdbcType=VARCHAR}
+        </if>
+        <if test="'author'.toString() == column.value">
+          #{item.author,jdbcType=VARCHAR}
+        </if>
+        <if test="'type'.toString() == column.value">
+          #{item.type,jdbcType=INTEGER}
+        </if>
+        <if test="'origin'.toString() == column.value">
+          #{item.origin,jdbcType=VARCHAR}
+        </if>
+        <if test="'state'.toString() == column.value">
+          #{item.state,jdbcType=VARCHAR}
+        </if>
+        <if test="'publish_time'.toString() == column.value">
+          #{item.publishTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'create_time'.toString() == column.value">
+          #{item.createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_time'.toString() == column.value">
+          #{item.updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'content'.toString() == column.value">
+          #{item.content,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="'content_md'.toString() == column.value">
+          #{item.contentMd,jdbcType=LONGVARCHAR}
+        </if>
+      </foreach>
+      )
+    </foreach>
+    on duplicate key update 
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName} = values(${column.escapedColumnName})
+    </foreach>
+  </insert>
+  <insert id="batchUpsert" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article
+    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+      update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+        #{item.cover,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
+        #{item.origin,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.publishTime,jdbcType=TIMESTAMP}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+    on duplicate key update 
+    id = values(id),
+    title = values(title),
+    description = values(description),
+    cover = values(cover),
+    author = values(author),
+    type = values(type),
+    origin = values(origin),
+    state = values(state),
+    publish_time = values(publish_time),
+    create_time = values(create_time),
+    update_time = values(update_time)
+  </insert>
+  <insert id="batchUpsertWithBLOBs" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into tb_article
+    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+      update_time, content, content_md)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+        #{item.cover,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
+        #{item.origin,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.publishTime,jdbcType=TIMESTAMP}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.content,jdbcType=LONGVARCHAR}, 
+        #{item.contentMd,jdbcType=LONGVARCHAR})
+    </foreach>
+    on duplicate key update 
+    id = values(id),
+    title = values(title),
+    description = values(description),
+    cover = values(cover),
+    author = values(author),
+    type = values(type),
+    origin = values(origin),
+    state = values(state),
+    publish_time = values(publish_time),
+    create_time = values(create_time),
+    update_time = values(update_time),
+    content = values(content),
+    content_md = values(content_md)
+  </insert>
+</mapper>
