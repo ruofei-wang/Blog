@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  blog:
+    image: kkrepo/blog:v1.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/opt/blog/data"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"

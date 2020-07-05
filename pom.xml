@@ -136,7 +136,12 @@
     </dependencies>
 
     <build>
+        <finalName>Blog</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!--mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate-->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>

@@ -6,7 +6,8 @@ spring:
     cache: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?characterEncoding=utf8&useSSL=true
+    # 当 docker-engine 的版本大于 18.03 的时候,使用 host.docker.internal 就可以直接访问宿主机
+    url: jdbc:mysql://host.docker.internal:3306/blog?characterEncoding=utf8&useSSL=true
     username: root
     password: root
     hikari:
@@ -20,7 +21,8 @@ spring:
       initialization-fail-timeout: 1000
   redis:
     database: 0
-    host: 127.0.0.1
+    # 本机测试用 127.0.0.1  docker部署使用 redis
+    host: redis
     port: 6379
     pool:
       max-active: 8
@@ -31,14 +33,14 @@ spring:
 
 blog:
   qiniu:
-    ak: XXXX
-    sk: XXXX
-    bn: XXXX
-    url: XXXX
+    ak: QINIU_ACCESS_KEY
+    sk: QINIU_SECRET_KEY
+    bn: QINIU_BUCKET_NAME
+    url: QINIU_URL
 
 jwt:
   token:
-    secret: XXXX
+    secret: JWT_TOKEN_SECRET
     expiration: 86400
 
 management:
@@ -57,4 +59,3 @@ pagehelper:
   helper-dialect: mysql
   resonable: true
   support-methods-arguments: true
-
