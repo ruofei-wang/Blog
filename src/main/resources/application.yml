@@ -6,10 +6,9 @@ spring:
     cache: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # docker 部署的时候 172.17.0.1 是宿主机的ip
-    url: jdbc:mysql://172.17.0.1:3306/blog?characterEncoding=utf8&useSSL=true
-    username: root
-    password: root
+    url: jdbc:mysql://MYSQL_HOST:3306/blog?characterEncoding=utf8&useSSL=true
+    username: MYSQL_USER
+    password: MYSQL_PASSWORD
     hikari:
       connection-timeout: 500
       login-timeout: 500
