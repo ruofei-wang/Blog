@@ -6,7 +6,7 @@ spring:
     cache: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # 172.17.0.1 是宿主机的ip
+    # docker 部署的时候 172.17.0.1 是宿主机的ip
     url: jdbc:mysql://172.17.0.1:3306/blog?characterEncoding=utf8&useSSL=true
     username: root
     password: root
