@@ -6,8 +6,8 @@ spring:
     cache: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # 当 docker-engine 的版本大于 18.03 的时候,使用 host.docker.internal 就可以直接访问宿主机
-    url: jdbc:mysql://host.docker.internal:3306/blog?characterEncoding=utf8&useSSL=true
+    # 172.17.0.1 是宿主机的ip
+    url: jdbc:mysql://172.17.0.1:3306/blog?characterEncoding=utf8&useSSL=true
     username: root
     password: root
     hikari:

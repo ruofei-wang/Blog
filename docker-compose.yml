@@ -8,6 +8,8 @@ services:
       - "/opt/blog/data"
     depends_on:
       - redis
+    links:
+      - redis:redis
 
   redis:
     image: redis:latest

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false" scan="false">
     <springProperty scop="context" name="spring.application.name" source="spring.application.name" defaultValue=""/>
-    <property name="log.path" value="logs/blog"/>
+    <property name="log.path" value="logs"/>
     <!-- 彩色日志格式 -->
     <property name="CONSOLE_LOG_PATTERN"
       value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
@@ -18,11 +18,11 @@
         </encoder>
     </appender>
 
-    <!-- Log file debug output -->
-    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/debug.log</file>
+    <!-- Log file app output -->
+    <appender name="app" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/app.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/%d{yyyy-MM, aux}/debug.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>${log.path}/%d{yyyy-MM, aux}/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -50,7 +50,7 @@
     <!-- Level: FATAL 0  ERROR 3  WARN 4  INFO 6  DEBUG 7 -->
     <root level="INFO">
         <appender-ref ref="console"/>
-        <appender-ref ref="debug"/>
+        <appender-ref ref="app"/>
         <appender-ref ref="error"/>
     </root>
 </configuration>

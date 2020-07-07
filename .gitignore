@@ -27,3 +27,4 @@ logs
 out
 
 .idea/*
+*.DS_Store
