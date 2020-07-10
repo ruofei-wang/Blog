@@ -29,19 +29,14 @@ public class LogService {
         return mapper.insert(log);
     }
 
-    public PageInfo<Log> list(Log log, Integer pageNum, Integer pageSize) {
+    public PageInfo<Log> list(String username, String operation, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        LogExample example;
-        if (log == null) {
-            example = new LogExample().orderBy(Column.id.desc());
-        } else {
-            example = new LogExample()
-                .createCriteria()
-                .andIf(StringUtils.isNotBlank(log.getUsername()), x -> x.andUsernameEqualTo(log.getUsername()))
-                .andIf(StringUtils.isNotBlank(log.getOperation()), x -> x.andOperationEqualTo(log.getOperation()))
-                .example()
-                .orderBy(Column.id.desc());
-        }
+        LogExample example = new LogExample()
+            .createCriteria()
+            .andIf(StringUtils.isNotBlank(username), x -> x.andUsernameEqualTo(username))
+            .andIf(StringUtils.isNotBlank(operation), x -> x.andOperationEqualTo(operation))
+            .example()
+            .orderBy(Column.id.desc());
         List<Log> logList = mapper.selectByExample(example);
         return new PageInfo<>(logList);
     }

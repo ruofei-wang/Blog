@@ -43,11 +43,12 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/list")
     public R list(
-        @RequestBody(required = false) Article article,
+        @RequestParam(name = "title", required = false) String title,
+        @RequestParam(name = "author", required = false) String author,
         @RequestParam(name = "pageNum", required = false) Integer pageNum,
         @RequestParam(name = "pageSize", required = false) Integer pageSize
     ) {
-        return ResultWrap.ok(articleManager.list(article, pageNum, pageSize));
+        return ResultWrap.ok(articleManager.list(title, author, pageNum, pageSize));
     }
 
     @GetMapping("/{id}")

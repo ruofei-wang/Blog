@@ -24,10 +24,11 @@ public class LogController {
 
     @GetMapping("/list")
     public R list(
-        Log log,
+        @RequestParam(name = "username", required = false) String username,
+        @RequestParam(name = "operation", required = false) String operation,
         @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
         @RequestParam(name = "pageSize", required = false, defaultValue = "100") Integer pageSize
     ) {
-        return ResultWrap.ok(logService.list(log, pageNum, pageSize));
+        return ResultWrap.ok(logService.list(username, operation, pageNum, pageSize));
     }
 }

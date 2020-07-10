@@ -28,21 +28,14 @@ public class LinkService {
         return mapper.selectByExample(new LinkExample());
     }
 
-    public PageInfo<Link> list(Link link, Integer pageNum, Integer pageSize) {
+    public PageInfo<Link> list(String name, String url, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        LinkExample example;
-        if (link == null) {
-            example = new LinkExample().orderBy(Column.id.desc());
-        } else {
-            String name = link.getName();
-            String url = link.getUrl();
-            example = new LinkExample()
-                .createCriteria()
-                .andIf(StringUtils.isNotBlank(name), x -> x.andNameEqualTo(name))
-                .andIf(StringUtils.isNotBlank(url), x -> x.andUrlEqualTo(url))
-                .example()
-                .orderBy(Column.id.desc());
-        }
+        LinkExample example = new LinkExample()
+            .createCriteria()
+            .andIf(StringUtils.isNotBlank(name), x -> x.andNameEqualTo(name))
+            .andIf(StringUtils.isNotBlank(url), x -> x.andUrlEqualTo(url))
+            .example()
+            .orderBy(Column.id.desc());
         List<Link> linkList = mapper.selectByExample(example);
         return new PageInfo<>(linkList);
     }

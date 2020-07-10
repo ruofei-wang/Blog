@@ -62,21 +62,14 @@ public class ArticleService {
         return mapper.countByExample(new ArticleExample());
     }
 
-    public PageInfo<Article> list(Article article, Integer pageNum, Integer pageSize) {
-        ArticleExample example;
+    public PageInfo<Article> list(String title, String author, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        if (article == null) {
-            example = new ArticleExample().orderBy(Column.id.desc());
-        } else {
-            String title = article.getTitle();
-            String author = article.getAuthor();
-            example = new ArticleExample()
-                .createCriteria()
-                .andIf(StringUtils.isNotBlank(title), criteria -> criteria.andTitleLike("%" + title + "%"))
-                .andIf(StringUtils.isNotBlank(author), criteria -> criteria.andAuthorLike("%" + author + "%"))
-                .example()
-                .orderBy(Column.id.desc());
-        }
+        ArticleExample example = new ArticleExample()
+            .createCriteria()
+            .andIf(StringUtils.isNotBlank(title), criteria -> criteria.andTitleLike("%" + title + "%"))
+            .andIf(StringUtils.isNotBlank(author), criteria -> criteria.andAuthorLike("%" + author + "%"))
+            .example()
+            .orderBy(Column.id.desc());
         List<Article> articleList = mapper.selectByExample(example);
         return new PageInfo<>(articleList);
     }

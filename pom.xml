@@ -20,7 +20,7 @@
         <shiro.version>1.5.3</shiro.version>
         <shiro.cache.version>1.5.3</shiro.cache.version>
         <aspectj.version>1.9.5</aspectj.version>
-        <qiniu.version>7.2.23</qiniu.version>
+        <oss.version>3.10.2</oss.version>
         <spring-boot-redis.version>2.3.0.RELEASE</spring-boot-redis.version>
         <jjwt.version>0.9.1</jjwt.version>
     </properties>
@@ -99,12 +99,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.qiniu</groupId>
-            <artifactId>qiniu-java-sdk</artifactId>
-            <version>${qiniu.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>${spring-boot-redis.version}</version>
@@ -131,6 +125,12 @@
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
             <version>1.21</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${oss.version}</version>
         </dependency>
 
     </dependencies>

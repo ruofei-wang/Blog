@@ -142,12 +142,12 @@ public class AdminRouterController extends BaseController {
         return "admin/setting/log/index";
     }
 
-    @GetMapping("/admin/setting/qiniu")
-    public String settingQiniu(HttpServletRequest request, Model model) {
+    @GetMapping("/admin/setting/oss")
+    public String settingoss(HttpServletRequest request, Model model) {
         if (!this.auth(request, model)) {
             return "redirect:/login";
         }
-        return "admin/setting/qiniu/index";
+        return "admin/setting/oss/index";
     }
 
 }

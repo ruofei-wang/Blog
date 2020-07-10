@@ -30,11 +30,12 @@ public class LinkController {
 
     @GetMapping("/list")
     public R list(
-        Link link,
+        @RequestParam(name = "name", required = false) String name,
+        @RequestParam(name = "url", required = false) String url,
         @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
         @RequestParam(name = "pageSize", required = false, defaultValue = "100") Integer pageSize
     ) {
-        return ResultWrap.ok(linkService.list(link, pageNum, pageSize));
+        return ResultWrap.ok(linkService.list(name, url, pageNum, pageSize));
     }
 
     @GetMapping("/{id}")

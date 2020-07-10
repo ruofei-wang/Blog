@@ -31,11 +31,12 @@ spring:
     timeout: 5000
 
 blog:
-  qiniu:
-    ak: QINIU_ACCESS_KEY
-    sk: QINIU_SECRET_KEY
-    bn: QINIU_BUCKET_NAME
-    url: QINIU_URL
+  oss:
+    ak: ALI_OSS_ACCESS_KEY
+    sk: ALI_OSS_SECRET_KEY
+    bn: ALI_OSS_BUCKET_NAME
+    url: ALI_OSS_URL
+    endPoint: ALI_OSS_ENDPOINT
 
 jwt:
   token:

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>七牛云</title>
+    <title>OSS</title>
     <link rel="shortcut icon" type="image/x-icon" href="/admin/img/favicon.ico?v=5.1.1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -112,7 +112,7 @@
 
                     <ul>
                         <li><a href="/admin/setting/log">操作日志</a></li>
-                        <li class="navigation__active"><a href="/admin/setting/qiniu">七牛云</a></li>
+                        <li class="navigation__active"><a href="/admin/setting/oss">OSS</a></li>
                     </ul>
                 </li>
             </ul>
@@ -121,8 +121,8 @@
 
     <section class="content" id="app">
 
-        <div th:replace="admin/setting/qiniu/components/container"></div>
-        <div th:replace="admin/setting/qiniu/components/form"></div>
+        <div th:replace="admin/setting/oss/components/container"></div>
+        <div th:replace="admin/setting/oss/components/form"></div>
 
         <footer class="footer hidden-xs-down">
             <p>© Tumo Blog. All rights reserved.</p>
@@ -157,7 +157,8 @@
             list: [],
             form: {},
             dialogVisible: false,
-            fileList: []
+            fileList: [],
+            query: {},
         },
         created() {
             this.fetchData()
@@ -170,22 +171,10 @@
             },
             fetchData() {
                 this.$http.get(
-                    '/api/admin/storage/qiniu/list'
+                    '/api/admin/storage/oss/list' + "?" + convertObj(this.query)
                 ).then(res => {
                     if (res.body.code == 200) {
                         this.list = res.body.data.list
-                    } else {
-                        this.$message.error(res.body.msg)
-                    }
-                })
-            },
-            handleEdit(name) {
-                this.$http.get(
-                    '/api/admin/storage/qiniu/find?name=' + name,
-                ).then(res => {
-                    if (res.body.code == 200) {
-                        this.form = res.body.data
-                        this.dialogVisible = true
                     } else {
                         this.$message.error(res.body.msg)
                     }
@@ -201,7 +190,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$http.delete(
-                        '/api/admin/storage/qiniu/delete?name=' + name
+                        '/api/admin/storage/oss/delete?name=' + name
                     ).then(res => {
                         if (res.body.code == 200) {
                             this.fetchData();

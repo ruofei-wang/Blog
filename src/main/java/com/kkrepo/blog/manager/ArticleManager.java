@@ -154,8 +154,8 @@ public class ArticleManager {
         return articleService.countAll();
     }
 
-    public PageInfo<ArticleModel> list(Article article, Integer pageNum, Integer pageSize) {
-        PageInfo<Article> articlePageInfo = articleService.list(article, pageNum, pageSize);
+    public PageInfo<ArticleModel> list(String title, String author, Integer pageNum, Integer pageSize) {
+        PageInfo<Article> articlePageInfo = articleService.list(title, author, pageNum, pageSize);
         PageInfo<ArticleModel> pageInfo = new PageInfo<>();
         BeanUtils.copyProperties(articlePageInfo, pageInfo, "list");
         pageInfo.setList(articlePageInfo.getList().stream().map(x -> buildArticleModel(x)).collect(Collectors.toList()));

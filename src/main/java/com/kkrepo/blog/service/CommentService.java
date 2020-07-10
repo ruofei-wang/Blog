@@ -52,21 +52,14 @@ public class CommentService {
         return mapper.countByExample(new CommentExample());
     }
 
-    public PageInfo<Comment> list(Comment comment, Integer pageNum, Integer pageSize) {
+    public PageInfo<Comment> list(String name, String url, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        CommentExample example;
-        if (comment == null) {
-            example = new CommentExample().orderBy(Column.id.desc());
-        } else {
-            String name = comment.getName();
-            String url = comment.getUrl();
-            example = new CommentExample()
-                .createCriteria()
-                .andIf(StringUtils.isNotBlank(name), x -> x.andNameEqualTo(name))
-                .andIf(StringUtils.isNotBlank(url), x -> x.andUrlEqualTo(url))
-                .example()
-                .orderBy(Column.id.desc());
-        }
+        CommentExample example = new CommentExample()
+            .createCriteria()
+            .andIf(StringUtils.isNotBlank(name), x -> x.andNameEqualTo(name))
+            .andIf(StringUtils.isNotBlank(url), x -> x.andUrlEqualTo(url))
+            .example()
+            .orderBy(Column.id.desc());
         List<Comment> commentList = mapper.selectByExampleWithBLOBs(example);
         return new PageInfo<>(commentList);
     }

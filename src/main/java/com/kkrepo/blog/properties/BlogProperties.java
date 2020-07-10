@@ -17,6 +17,6 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "blog")
 public class BlogProperties {
 
-    private QiniuProperties qiniu = new QiniuProperties();
+    private AliOSSProperties oss = new AliOSSProperties();
 
 }

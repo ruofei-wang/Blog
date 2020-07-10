@@ -112,7 +112,7 @@
 
                     <ul>
                         <li><a href="/admin/setting/log">操作日志</a></li>
-                        <li><a href="/admin/setting/qiniu">七牛云</a></li>
+                        <li><a href="/admin/setting/oss">OSS</a></li>
                     </ul>
                 </li>
             </ul>
@@ -174,8 +174,7 @@
             },
             fetchData() {
                 this.$http.get(
-                    '/api/admin/link/list?pageNum=' + this.pageConf.page + '&pageSize=' + this.pageConf.limit,
-                    JSON.stringify(this.query)
+                    '/api/admin/link/list?pageNum=' + this.pageConf.page + '&pageSize=' + this.pageConf.limit + "&" + convertObj(this.query)
                 ).then(res => {
                     if (res.body.code == 200) {
                         this.list = res.body.data.list

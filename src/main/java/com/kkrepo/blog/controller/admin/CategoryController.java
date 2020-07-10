@@ -39,20 +39,6 @@ public class CategoryController {
         return ResultWrap.ok(categoryService.findAll());
     }
 
-//    @GetMapping("/findArticleCountForCategory")
-//    public R findArticleCountForCategory() {
-//        Map<String, Object> map = new HashMap<>();
-//        List<Category> categoryList = categoryService.findAll();
-//        List<Article> articleList = articleManager.queryAll();
-//        Map<String, List<Article>> articleGroupByMap = articleList.stream().collect(Collectors.groupingBy(Article::getCategory));
-//        categoryList.forEach(x -> {
-//            List<Article> groupByArticleList = articleGroupByMap.get(x.getId());
-//            int size = groupByArticleList == null ? 0 : groupByArticleList.size();
-//            map.put(x.getName(), size);
-//        });
-//        return ResultWrap.ok(map);
-//    }
-
     @GetMapping("/list")
     public R list(
         Category category,
