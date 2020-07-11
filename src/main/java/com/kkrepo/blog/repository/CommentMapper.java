@@ -201,7 +201,7 @@ public interface CommentMapper {
      */
     int batchUpsertWithBLOBs(@Param("list") List<Comment> list);
 
-    @Select("SELECT DISTINCT c.content, c.name, c.article_id FROM tb_article a, tb_comment c WHERE c.article_id IN ( SELECT id FROM tb_article ) AND a.state = #{articleState} order by c.id desc LIMIT #{limit};")
+    @Select("SELECT c.content, c.name, c.article_id FROM tb_article a, tb_comment c WHERE c.article_id IN ( SELECT id FROM tb_article ) AND a.state = #{articleState} order by c.id desc LIMIT #{limit};")
     List<Comment> queryLatestArticles(@Param("articleState") String articleState, @Param("limit") int limit);
 
     @Select("select date_format(create_time, '%Y-%m-%d') dayTime, count(*) num from tb_comment group by date_format(create_time, '%Y-%m-%d')")

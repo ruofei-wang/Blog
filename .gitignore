@@ -26,5 +26,6 @@ target
 logs
 out
 
+*.iml
 .idea/*
 *.DS_Store

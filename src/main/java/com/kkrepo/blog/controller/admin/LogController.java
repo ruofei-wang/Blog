@@ -1,6 +1,5 @@
 package com.kkrepo.blog.controller.admin;
 
-import com.kkrepo.blog.domain.Log;
 import com.kkrepo.blog.service.LogService;
 import com.kkrepo.blog.support.R;
 import com.kkrepo.blog.support.ResultWrap;
