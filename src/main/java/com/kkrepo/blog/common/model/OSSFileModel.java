@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * @author WangRuofei
  * @create 2020-07-10 9:25 下午
- * @copyright (c) 2020, bitmain.com All Rights Reserved
+ * @copyright (c) 2020, kkrepo.com All Rights Reserved
  */
 @Data
 @Builder
