@@ -51,10 +51,15 @@
 
         <p th:utext="${article.content}"></p>
 
-        <p class="post-info">
-            本文由 <a href="/">[[${article.author}]]</a> 创作，采用
-            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a>
-            国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: [[${article.updateTime}]]
+        <p class="post-info" th:if="${article.type} == '1'">
+            本文转载自: [[${article.origin}]]
+            <br>文章著作权归作者所有，商业转载请联系作者获得授权，非商业转载请注明出处。
+            <br>最后编辑时间为: [[${article.updateTime}]]
+        </p>
+        <p class="post-info" th:if="${article.type} == '0'">
+            本文由 <a href="/">[[${article.author}]]</a> 创作，文章链接: <a th:href="${#httpServletRequest.getRequestURL()}" th:text="${#httpServletRequest.getRequestURL()}"/>
+            <br>文章著作权归作者所有，商业转载请联系作者获得授权，非商业转载请注明出处。
+            <br>最后编辑时间为: [[${article.updateTime}]]
         </p>
     </div>
 </article>
