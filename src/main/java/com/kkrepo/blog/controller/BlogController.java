@@ -157,6 +157,7 @@ public class BlogController {
         Browser browser = userAgent.getBrowser();
         OperatingSystem operatingSystem = userAgent.getOperatingSystem();
         comment.setDevice(browser.getName() + "," + operatingSystem.getName());
+        comment.setState(CommonStateEnum.PUBLISHED.getCode());
         commentService.add(comment);
         return ResultWrap.ok(1);
     }
