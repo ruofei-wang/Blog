@@ -201,12 +201,12 @@
     var titleTime;
     document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
-            document.querySelectorAll('link[rel="icon"]').setAttribute('href', "/funny.ico");
+            document.getElementsByTagName('link')[0].setAttribute('href', "/funny.ico");
             document.title = 'Free Porn Videos & Sex Movies - Porno, XXX, Porn Tube and Pussy Porn';
             clearTimeout(titleTime);
         }
         else {
-            document.querySelectorAll('link[rel="icon"]').setAttribute('href', "/favicon.ico");
+            document.getElementsByTagName('link')[0].setAttribute('href', "/favicon.ico");
             document.title = OriginTitle;
             titleTime = setTimeout(function () {
                 document.title = OriginTitle;
