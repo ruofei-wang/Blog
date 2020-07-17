@@ -239,7 +239,6 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.form.content = $("#article-container").trumbowyg('html')
-                        this.form.description = $("#article-des-container").trumbowyg('html')
                         if (this.form.description == '' || this.form.description == undefined) {
                             this.$message.error('请填写文章描述')
                             return;
