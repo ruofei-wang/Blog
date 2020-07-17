@@ -193,3 +193,24 @@
 
 <!--背景线条-->
 <script type="text/javascript" color="47,135,193" opacity='0.5' zIndex="-2" count="199" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript">
+    // 浏览器搞笑标题
+    var OriginTitle = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/funny.ico");
+            document.title = 'Free Porn Videos & Sex Movies - Porno, XXX, Porn Tube and Pussy Porn';
+            clearTimeout(titleTime);
+        }
+        else {
+            $('[rel="icon"]').attr('href', "/favicon.ico");
+            document.title = OriginTitle;
+            titleTime = setTimeout(function () {
+                document.title = OriginTitle;
+            }, 2000);
+        }
+    });
+</script>

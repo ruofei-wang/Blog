@@ -3,6 +3,7 @@
 /* 浮动菜单 */
 #floatMenu {z-index: 9;position: fixed;right: 15px;bottom: 50px;width: 36px;opacity: 0;}  #floatMenu .btn-goTop {display: block;height: 36px;background-image: url("/site/images/rocket.svg");}  #floatMenu.animated.slideUp{-webkit-animation-name: slideUp;animation-name: slideUp}  #floatMenu.headroom--not-top {-webkit-transition: opacity .5s ease-in-out;transition: opacity .5s ease-in-out;opacity: 1}
 .comment-author span{padding:10px .5rem;background:#ededed;color:#b3b1b1;font-size:.75rem;border-radius:.2rem;margin-left:16px}
-
+/*自定义鼠标样式*/
+body{cursor: url(https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@2.1.6/images/mouse.cur),auto;}
 /* 右下角的小姑娘 */
 canvas#live2dcanvas {border: 0 !important;left: 0;}
