@@ -32,12 +32,8 @@
                 </el-form-item>
             </div>
         </div>
-        <el-form-item label="文章描述">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="article-des-container"></div>
-                </div>
-            </div>
+        <el-form-item label="文章描述" prop="description">
+            <el-input type="textarea" :autosize="{ minRows: 2}" v-model="form.description" placeholder="请输入文章描述"></el-input>
         </el-form-item>
         <el-form-item label="文章内容">
             <div class="row">
