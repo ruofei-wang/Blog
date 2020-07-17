@@ -291,7 +291,6 @@
                         setTimeout(() => {
                             this.initPlugins()
                             $("#article-container").trumbowyg('html', res.body.data.content)
-                            $("#article-des-container").trumbowyg('html', res.body.data.description)
                         }, 1)
                     } else {
                         this.$message.error(res.body.msg)
