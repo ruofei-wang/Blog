@@ -206,7 +206,7 @@ public interface ArticleMapper {
     @Select("select distinct DATE_FORMAT(publish_time, '%Y-%m') from tb_article where state = #{state} order by DATE_FORMAT(publish_time, '%Y-%m') desc")
     List<String> queryArchivesDates(@Param("state") String state);
 
-    @Select("select id,title,publish_time from tb_article where state = #{state} and publish_time like CONCAT ('%', #{publishTime}, '%')")
+    @Select("select id,title,publish_time publishTime from tb_article where state = #{state} and publish_time like CONCAT ('%', #{publishTime}, '%')")
     List<Article> queryArchivesByDate(@Param("publishTime") String publishTime, @Param("state") String state);
 
     @Select("select id,title,cover,author,description,create_time as createTime from tb_article where id in(select article_id from tb_article_category where category_id = #{categoryId}) order by id desc")
