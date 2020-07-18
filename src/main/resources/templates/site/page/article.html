@@ -57,7 +57,7 @@
             <br>最后编辑时间为: [[${article.updateTime}]]
         </p>
         <p class="post-info" th:if="${article.type} == '0'">
-            本文由 <a href="/">[[${article.author}]]</a> 创作，文章链接: <a th:href="${#httpServletRequest.getRequestURL()}" th:text="${#httpServletRequest.getRequestURL()}"/>
+            本文由 <a href="/">[[${article.author}]]</a> 创作，文章链接: <a th:href="'https://www.kkrepo.com/article/' + ${article.id}" th:text="'https://www.kkrepo.com/article/' + ${article.id}"/>
             <br>文章著作权归作者所有，商业转载请联系作者获得授权，非商业转载请注明出处。
             <br>最后编辑时间为: [[${article.updateTime}]]
         </p>
