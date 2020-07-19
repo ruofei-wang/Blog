@@ -1,7 +1,6 @@
 package com.kkrepo.blog.controller.admin;
 
 import com.kkrepo.blog.common.exception.ErrorCode;
-import com.kkrepo.blog.common.util.HttpContextUtil;
 import com.kkrepo.blog.common.util.Sha256Salt;
 import com.kkrepo.blog.configuration.shiro.realm.JwtTokenUtil;
 import com.kkrepo.blog.domain.User;
@@ -11,7 +10,6 @@ import com.kkrepo.blog.support.R;
 import com.kkrepo.blog.support.ResultWrap;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
