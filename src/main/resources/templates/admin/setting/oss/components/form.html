@@ -2,7 +2,8 @@
     <el-upload
             action="/api/admin/storage/oss/upload"
             :on-success="uploadSuccess"
-            :file-list="fileList">
+            :file-list="fileList"
+            multiple="true">
         <el-button size="small" type="primary">点击上传</el-button>
     </el-upload>
     <span slot="footer" class="dialog-footer">

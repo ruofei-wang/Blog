@@ -5,7 +5,6 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.ListObjectsRequest;
 import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
-import com.aliyun.oss.model.PutObjectResult;
 import com.github.pagehelper.PageInfo;
 import com.kkrepo.blog.common.exception.BaseException;
 import com.kkrepo.blog.common.model.OSSFileModel;
@@ -77,20 +76,22 @@ public class AliOSSController {
 
     @RequestMapping("/upload")
     public R upload(
-        @RequestParam(value = "file", required = true) MultipartFile file
+        @RequestParam(value = "file", required = true) MultipartFile[] files
     ) {
         AliOSSProperties ossProperties = properties.getOss();
         OSS ossClient = new OSSClientBuilder().build(ossProperties.getEndPoint(), ossProperties.getAk(), ossProperties.getSk());
-        // 获取文件名
-        String fileName = OSS_UPLOAD_PATH + dateFormat.format(new Date()) + "/" + file.getOriginalFilename();
-        try {
-            PutObjectResult putObjectResult = ossClient.putObject(ossProperties.getBn(), fileName, file.getInputStream());
-            ossClient.shutdown();
-            return ResultWrap.ok(putObjectResult.getETag());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new BaseException(e.getMessage());
+        for (MultipartFile file : files) {
+            // 获取文件名
+            String fileName = OSS_UPLOAD_PATH + dateFormat.format(new Date()) + "/" + file.getOriginalFilename();
+            try {
+                ossClient.putObject(ossProperties.getBn(), fileName, file.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new BaseException(e.getMessage());
+            }
         }
+        ossClient.shutdown();
+        return ResultWrap.ok(1);
     }
 
     @DeleteMapping("/delete")
