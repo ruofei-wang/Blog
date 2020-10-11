@@ -30,8 +30,8 @@
   - [技术选型](#技术选型)
 - [快速开始(本地运行)](#快速开始(本地运行))
 - [服务区环境配置](#服务区环境配置)
-- [Github Webhooks 触发自动部署配置](#Github Webhooks 触发自动部署配置)
-- [Jenkins 持续部署配置](#Jenkins 持续部署配置)
+- [Github Webhooks 触发自动部署配置](#https://github.com/kkrepocom/Blog#github-webhooks-%E8%A7%A6%E5%8F%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE)
+- [Jenkins 持续部署配置](#https://github.com/kkrepocom/Blog#jenkins-%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE)
 - [前端特效](#前端特效)
 - [遇到的问题及解决方案](#遇到的问题及解决方案)
 - [License](#License)
@@ -91,6 +91,7 @@
 - JDK
 - MySQL
 - Git
+- Maven
 - Docker
 - Jenkins
 
