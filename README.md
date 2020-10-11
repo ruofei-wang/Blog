@@ -47,6 +47,10 @@
 
 ### 后台管理
 
+![image-20201011205513861](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011205513861-ujgzSY.png)
+
+
+
 ![image-20201011162302908](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011162302908-vjDNis.png)
 
 
@@ -122,5 +126,5 @@
 
 ## License
 
-[MIT](LICENSE) © Richard Littauer
+[MIT](LICENSE) © kkrepocom
 
