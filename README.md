@@ -100,7 +100,7 @@
 - [`Webhooks` 配置](https://github.com/kkrepocom/Blog/wiki/Github-Webhooks-%E8%A7%A6%E5%8F%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE#webhooks-%E9%85%8D%E7%BD%AE)
 - [`access tokens` 配置](https://github.com/kkrepocom/Blog/wiki/Github-Webhooks-%E8%A7%A6%E5%8F%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE#access-tokens-%E9%85%8D%E7%BD%AE)
 
-##[Jenkins 持续部署配置](https://github.com/kkrepocom/Blog/wiki/Jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90)
+## [Jenkins 持续部署配置](https://github.com/kkrepocom/Blog/wiki/Jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90)
 
 - [`Jenkins` 配置及持续集成](https://github.com/kkrepocom/Blog/wiki/Jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90#jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90)
 - [`Blog` 项目配置](https://github.com/kkrepocom/Blog/wiki/Jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90#blog-%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE)
