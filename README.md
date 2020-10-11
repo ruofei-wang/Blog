@@ -40,13 +40,11 @@
 ![image-20201011161751906](https://github.com/kkrepocom/ImageHosting/blob/master/image-20201011161751906-DxOVsV.png)
 
 
-
 ![image-20201011161837855](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011161837855-1aLuEY.png)
 
 ### 后台管理
 
-![image-20201011205513861](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011205513861-ujgzSY.png)
-
+<div style="text-align: center;width:100%">![image-20201011205513861](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011205513861-ujgzSY.png)</div>
 
 
 ![image-20201011162302908](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011162302908-vjDNis.png)
