@@ -16,8 +16,7 @@
 - 项目搭建：[https://www.kkrepo.com/article/1](https://www.kkrepo.com/article/1)
 
 
-
-![main](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011155636571-z1NipE.png)
+![image-20201011155636571](https://github.com/kkrepocom/ImageHosting/blob/master/image-20201011155636571-z1NipE.png)
 
 
 
@@ -40,7 +39,7 @@
 
 ### 前台展示
 
-![image-20201011161751906](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011161751906-DxOVsV.png)
+![image-20201011161751906](https://github.com/kkrepocom/ImageHosting/blob/master/image-20201011161751906-DxOVsV.png)
 
 
 
