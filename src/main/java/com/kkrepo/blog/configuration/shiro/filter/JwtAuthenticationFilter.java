@@ -10,12 +10,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 
+@Slf4j
 public class JwtAuthenticationFilter extends AuthenticatingFilter {
 
     private static final String TOKEN = "token";
@@ -86,11 +88,12 @@ public class JwtAuthenticationFilter extends AuthenticatingFilter {
             ObjectMapper objectMapper = new ObjectMapper();
             response.getWriter().write(objectMapper.writeValueAsString(jsonObject));
         } catch (IOException e) {
+            log.error("JwtAuthenticationFilter onLoginFailure e:{}", e);
         }
         try {
             this.saveRequestAndRedirectToLogin(request, response);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("JwtAuthenticationFilter onLoginFailure e:{}", e);
         }
         return false;
     }
