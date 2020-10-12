@@ -1,6 +1,5 @@
 package com.kkrepo.blog.support;
 
-import com.kkrepo.blog.common.util.GetRequestJsonUtils;
 import com.kkrepo.blog.common.util.JsonMapper;
 import java.util.HashMap;
 import java.util.Map;
