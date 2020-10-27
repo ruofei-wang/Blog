@@ -15,6 +15,7 @@ WORKDIR /opt/blog
 COPY ./target/Blog.jar /opt/blog/Blog.jar
 COPY ./target/classes/application.yml /opt/blog/application.yml
 COPY ./docker-entrypoint.sh /opt/blog/docker-entrypoint.sh
+RUN chmod +x /opt/blog/docker-entrypoint.sh
 
 EXPOSE 8080
 VOLUME /opt/blog/logs
