@@ -19,4 +19,4 @@ COPY ./docker-entrypoint.sh /opt/blog/docker-entrypoint.sh
 EXPOSE 8080
 VOLUME /opt/blog
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["chmod +x docker-entrypoint.sh"]
