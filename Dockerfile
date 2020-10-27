@@ -21,5 +21,5 @@ EXPOSE 8080
 VOLUME /opt/blog/logs
 VOLUME /opt/blog/data
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD [""]
