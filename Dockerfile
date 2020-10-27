@@ -21,4 +21,4 @@ RUN chmod 777 /opt/blog/docker-entrypoint.sh \
 EXPOSE 8080
 VOLUME /opt/blog
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
