@@ -16,9 +16,9 @@ COPY ./target/Blog.jar /opt/blog/Blog.jar
 COPY ./target/classes/application.yml /opt/blog/application.yml
 COPY ./docker-entrypoint.sh /opt/blog/docker-entrypoint.sh
 RUN chmod 777 /opt/blog/docker-entrypoint.sh \
-    && ln -s /opt/blog/docker-entrypoint.sh /
+    && ln -s /opt/blog/docker-entrypoint.sh
 
 EXPOSE 8080
 VOLUME /opt/blog
 
-ENTRYPOINT ["chmod +x docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
