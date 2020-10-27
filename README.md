@@ -6,7 +6,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/kkrepocom/blog) ![GitHub top language](https://img.shields.io/github/languages/top/kkrepocom/blog) ![GitHub issues](https://img.shields.io/github/issues/kkrepocom/blog) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kkrepocom/blog) ![Lines of code](https://img.shields.io/tokei/lines/github/kkrepocom/blog) ![GitHub](https://img.shields.io/github/license/kkrepocom/blog)
 
- 		[Blog](https://github.com/kkrepocom/Blog) 项目是我参照 [TyCoding](https://github.com/TyCoding) 大神的 [Tumo](https://github.com/TyCoding/tumo) 项目写的一个个人博客。项目采用 `SpringBoort` + `Shiro` + `MyBatis` + `Vue` + `Thymeleaf` 技术开发，数据存储方面使用了 `MySQL` 和 `Redis` 。项目采用 `Github Webhooks` 推送触发 `jenkins` 自动打包 `Docker` 镜像部署。默认主题使用了漂亮的 [pinghsu](https://github.com/chakhsu/pinghsu) ，简洁大方。
+[Blog](https://github.com/kkrepocom/Blog) 项目是我参照 [TyCoding](https://github.com/TyCoding) 大神的 [Tumo](https://github.com/TyCoding/tumo) 项目写的一个个人博客。项目采用 `SpringBoort` + `Shiro` + `MyBatis` + `Vue` + `Thymeleaf` 技术开发，数据存储方面使用了 `MySQL` 和 `Redis` 。项目采用 `Github Webhooks` 推送触发 `jenkins` 自动打包 `Docker` 镜像部署。默认主题使用了漂亮的 [pinghsu](https://github.com/chakhsu/pinghsu) ，简洁大方。
 
 
 
@@ -40,13 +40,11 @@
 ![image-20201011161751906](https://github.com/kkrepocom/ImageHosting/blob/master/image-20201011161751906-DxOVsV.png)
 
 
-
 ![image-20201011161837855](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011161837855-1aLuEY.png)
 
 ### 后台管理
 
 ![image-20201011205513861](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011205513861-ujgzSY.png)
-
 
 
 ![image-20201011162302908](https://cdn.kkrepo.com/uPic/2020-10-11/image-20201011162302908-vjDNis.png)
@@ -96,7 +94,7 @@
 - Docker
 - Jenkins
 
-# [Github Webhooks 触发自动部署配置](https://github.com/kkrepocom/Blog/wiki/Github-Webhooks-%E8%A7%A6%E5%8F%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE)
+## [Github Webhooks 触发自动部署配置](https://github.com/kkrepocom/Blog/wiki/Github-Webhooks-%E8%A7%A6%E5%8F%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE)
 
 - [`SSH` 配置](https://github.com/kkrepocom/Blog/wiki/Github-Webhooks-%E8%A7%A6%E5%8F%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE#ssh-%E9%85%8D%E7%BD%AE)
 - [`Webhooks` 配置](https://github.com/kkrepocom/Blog/wiki/Github-Webhooks-%E8%A7%A6%E5%8F%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE#webhooks-%E9%85%8D%E7%BD%AE)
