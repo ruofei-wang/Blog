@@ -119,6 +119,7 @@
 
 - [`jenkins` 拉取代码速度慢](https://github.com/kkrepocom/Blog/wiki/%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88#jenkins-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E9%80%9F%E5%BA%A6%E6%85%A2)
 
+- [应用日志未存储到宿主机上](https://github.com/kkrepocom/Blog/wiki/%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88#%E5%BA%94%E7%94%A8%E6%97%A5%E5%BF%97%E6%9C%AA%E5%AD%98%E5%82%A8%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%B8%8A)
 
 ## License
 
