@@ -5,7 +5,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /opt/blog/logs:/opt/blog/logs:rw
+      - /opt/blog/logs:/blog/logs:rw
     depends_on:
       - redis
     links:
