@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   blog:
-    image: kkrepo/blog:v1.0
+    image: kkrepo/blog:v1.1
     ports:
       - "8080:8080"
     volumes:
