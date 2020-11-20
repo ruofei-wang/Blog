@@ -24,6 +24,7 @@
 		<spring-boot-redis.version>2.3.0.RELEASE</spring-boot-redis.version>
 		<jjwt.version>0.9.1</jjwt.version>
 		<elasticsearch.version>7.10.0</elasticsearch.version>
+		<apollo.version>1.7.0</apollo.version>
 	</properties>
 
 	<dependencies>
@@ -117,6 +118,12 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${jjwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ctrip.framework.apollo</groupId>
+			<artifactId>apollo-client</artifactId>
+			<version>${apollo.version}</version>
 		</dependency>
 
 		<dependency>

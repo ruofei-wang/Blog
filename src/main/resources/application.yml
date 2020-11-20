@@ -1,61 +1,8 @@
-server:
-  port: 8080
-
-spring:
-  thymeleaf:
-    cache: false
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://MYSQL_HOST:3306/blog?characterEncoding=utf8&useSSL=true
-    username: MYSQL_USER
-    password: MYSQL_PASSWORD
-    hikari:
-      connection-timeout: 500
-      login-timeout: 500
-      max-lifetime: 1800000
-      minimum-idle: 1
-      validation-timeout: 1000
-      maximum-pool-size: 2
-      idle-timeout: 600000
-      initialization-fail-timeout: 1000
-  redis:
-    database: 0
-    # 本机测试用 127.0.0.1  docker部署使用 redis
-    host: redis
-    port: 6379
-    pool:
-      max-active: 8
-      max-wait: -1
-      max-idle: 8
-      min-idle: 0
-    timeout: 5000
-
-blog:
-  oss:
-    ak: ALI_OSS_ACCESS_KEY
-    sk: ALI_OSS_SECRET_KEY
-    bn: ALI_OSS_BUCKET_NAME
-    url: ALI_OSS_URL
-    endPoint: ALI_OSS_ENDPOINT
-
-jwt:
-  token:
-    secret: JWT_TOKEN_SECRET
-    expiration: 86400
-
-management:
-  endpoints:
-    beans: # disable beans endpoint
-      enabled: false
-    web:
-      exposure:
-        include: health,info,env,metrics,prometheus
-      base-path: /
-
-mybatis:
-  mapper-locations: classpath:mybatis/*.xml
-
-pagehelper:
-  helper-dialect: mysql
-  resonable: true
-  support-methods-arguments: true
+#阿波罗配置中心
+app:
+  id: BlogApp
+apollo:
+  meta: APOLLO_META
+  bootstrap:
+    enabled: true
+    namespaces: application
