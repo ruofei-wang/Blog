@@ -65,6 +65,7 @@
 |   Redis    | 2.3.0.RELEASE  | spring-boot-starter-data-redis |
 |    Vue     |    v2.6.11     |      后台管理系统前端使用      |
 | thymeleaf  | 3.0.11.RELEASE |            Blog页面            |
+| apollo  | 1.7.1 |            配置中心            |
 
 ## 快速开始(本地运行)
 
@@ -104,6 +105,8 @@
 
 - [`Jenkins` 配置及持续集成](https://github.com/kkrepocom/Blog/wiki/Jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90#jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90)
 - [`Blog` 项目配置](https://github.com/kkrepocom/Blog/wiki/Jenkins-%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90#blog-%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE)
+
+## [Docker 部署 Apollo 配置中心](https://github.com/kkrepocom/Blog/wiki/Docker-%E9%83%A8%E7%BD%B2-Apollo-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83)
 
 ## [前端特效](https://github.com/kkrepocom/Blog/wiki/%E5%89%8D%E7%AB%AF%E7%89%B9%E6%95%88)
 
