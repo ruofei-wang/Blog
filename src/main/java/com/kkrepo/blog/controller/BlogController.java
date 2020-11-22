@@ -10,6 +10,7 @@ import com.kkrepo.blog.domain.Comment;
 import com.kkrepo.blog.manager.ArticleManager;
 import com.kkrepo.blog.manager.CommentManager;
 import com.kkrepo.blog.service.CommentService;
+import com.kkrepo.blog.service.EsBlogService;
 import com.kkrepo.blog.service.LinkService;
 import com.kkrepo.blog.support.R;
 import com.kkrepo.blog.support.ResultWrap;
@@ -56,6 +57,8 @@ public class BlogController {
     private CommentService commentService;
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private EsBlogService esBlogService;
 
     @GetMapping("/error/500")
     public String error() {
@@ -160,6 +163,16 @@ public class BlogController {
         comment.setState(CommonStateEnum.PUBLISHED.getCode());
         commentService.add(comment);
         return ResultWrap.ok(1);
+    }
+
+    @GetMapping("/api/search/{keyword}")
+    @ResponseBody
+    public R search(
+        @PathVariable("keyword") String keyword,
+        @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+        @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize
+    ) {
+        return ResultWrap.ok(esBlogService.searchByPage(keyword, pageNum, pageSize));
     }
 
 }

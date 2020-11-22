@@ -85,6 +85,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/css/**", "anon");
         filterChainDefinitionMap.put("/admin/img/**", "anon");
         filterChainDefinitionMap.put("/api/comment/**", "anon");
+        filterChainDefinitionMap.put("/api/search/**", "anon");
 
         filterChainDefinitionMap.put("/**", "jwt");
         filter.setFilterChainDefinitionMap(filterChainDefinitionMap);

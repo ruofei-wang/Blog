@@ -106,6 +106,10 @@ public class ArticleService {
         return mapper.selectByExample(new ArticleExample().orderBy(Column.id.desc()));
     }
 
+    public List<Article> queryAllWithBLOBs() {
+        return mapper.selectByExampleWithBLOBs(new ArticleExample().orderBy(Column.id.desc()));
+    }
+
     public PageInfo<Article> queryPageByCategory(int categoryId, int pageNum, int pageSize, CommonStateEnum commonStateEnum) {
         int total = mapper.countByCategoryAndState(categoryId, commonStateEnum.getCode());
         int offset = (pageNum - 1)*pageSize;

@@ -1,5 +1,7 @@
 package com.kkrepo.blog.common;
 
+import java.util.regex.Pattern;
+
 /**
  * 常量类
  * @author WangRuofei
@@ -78,4 +80,15 @@ public interface Constant {
      * User-Agent
      */
     String USER_AGENT = "User-Agent";
+
+    /**
+     * 默认索引名称
+     */
+    String ELASTIC_SEARCH_INDEX = "blog";
+
+    /**
+     * 定义HTML标签的正则表达式
+     */
+    String REGEX_HTML="<[^>]+>";
+    Pattern htmlRegex = Pattern.compile(REGEX_HTML, Pattern.CASE_INSENSITIVE);
 }
