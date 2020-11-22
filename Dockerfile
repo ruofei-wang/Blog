@@ -1,4 +1,4 @@
-FROM java:8
+FROM livingobjects/jre8
 
 LABEL author="kkrepocom"\
     name="Blog"\
@@ -10,11 +10,11 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 
-WORKDIR /blog
+WORKDIR /opt/blog
 
-COPY ./target/Blog.jar /blog/Blog.jar
-COPY ./target/classes/application.yml /blog/application.yml
-COPY ./docker-entrypoint.sh /blog/docker-entrypoint.sh
+COPY ./target/Blog.jar /opt/blog/Blog.jar
+COPY ./target/classes/application.yml /opt/blog/application.yml
+COPY ./docker-entrypoint.sh /opt/blog/docker-entrypoint.sh
 RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 8080
