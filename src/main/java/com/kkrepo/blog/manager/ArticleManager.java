@@ -14,6 +14,7 @@ import com.kkrepo.blog.service.ArticleService;
 import com.kkrepo.blog.service.CategoryService;
 import com.kkrepo.blog.service.CommentService;
 import com.kkrepo.blog.service.TagService;
+import com.kkrepo.blog.task.AsyncEsDocumentTask;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +42,8 @@ public class ArticleManager {
     private CategoryService categoryService;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private AsyncEsDocumentTask asyncEsDocumentTask;
 
     /**
      * 封装页面footer中,最新的文章和评论数据
@@ -214,6 +217,8 @@ public class ArticleManager {
         article.setCreateTime(new Date());
         int flag = articleService.update(article);
         updateArticleCategoryTags(articleModel);
+        // 异步更新es document数据
+        asyncEsDocumentTask.updateBlogDocumentByArticle(article);
         return flag;
     }
 
@@ -223,6 +228,8 @@ public class ArticleManager {
             article.setState(CommonStateEnum.DELETED.getCode());
             return articleService.update(article);
         }
+        // 异步删除es document数据
+        asyncEsDocumentTask.deleteBlogDocumentByArticleId(article.getId().toString());
         return 0;
     }
 
@@ -231,6 +238,8 @@ public class ArticleManager {
         if (article != null && !CommonStateEnum.PUBLISHED.getCode().equals(article.getState())) {
             article.setState(CommonStateEnum.PUBLISHED.getCode());
             article.setPublishTime(new Date());
+            // 异步更新es document数据
+            asyncEsDocumentTask.updateBlogDocumentByArticle(article);
             return articleService.update(article);
         }
         return 0;
