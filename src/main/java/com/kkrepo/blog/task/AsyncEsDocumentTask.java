@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * 异步 ES Document 更新task
  * @author WangRuofei
  * @date 2020-11-23 8:46 下午
- * @copyright (c) 2020, bitmain.com All Rights Reserved
+ * @copyright (c) 2020, kkrepo.com All Rights Reserved
  */
 @Component
 public class AsyncEsDocumentTask {

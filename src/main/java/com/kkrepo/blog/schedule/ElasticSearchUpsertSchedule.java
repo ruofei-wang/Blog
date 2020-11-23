@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  * 定时更新或者创建redis的定时任务
  * @author WangRuofei
  * @date 2020-11-22 7:52 下午
- * @copyright (c) 2020, bitmain.com All Rights Reserved
+ * @copyright (c) 2020, kkrepo.com All Rights Reserved
  */
 @Slf4j
 @Component
