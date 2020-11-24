@@ -30,4 +30,10 @@ public class BlogDocument {
     private String category;
 
     private String content;
+
+    private int pv;
+
+    private long comments;
+
+    private Long createDate;
 }

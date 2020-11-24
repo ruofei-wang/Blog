@@ -95,6 +95,7 @@ public class EsBlogService {
 
     /**
      * 将 SearchHit 转为 BlogDocument
+     * 这儿展示搜索结果,暂时不返回content内容
      * @param x
      * @return
      */
@@ -107,7 +108,9 @@ public class EsBlogService {
             .author((String) sourceMap.get("author"))
             .tags((List<String>) sourceMap.get("tags"))
             .category((String) sourceMap.get("category"))
-            .content((String) sourceMap.get("content"))
+            .pv((Integer) sourceMap.get("pv"))
+            .createDate((Long) sourceMap.get("createDate"))
+            .comments(Long.valueOf(((Integer) sourceMap.get("comments")).longValue()))
             .build();
     }
 
@@ -163,6 +166,15 @@ public class EsBlogService {
             + "        \"content\": {\n"
             + "            \"type\": \"text\",\n"
             + "            \"analyzer\": \"ik_max_word\"\n"
+            + "        },\n"
+            + "        \"pv\": {\n"
+            + "            \"type\": \"integer\"\n"
+            + "        },\n"
+            + "        \"comments\": {\n"
+            + "            \"type\": \"long\"\n"
+            + "        },\n"
+            + "        \"createTime\": {\n"
+            + "            \"type\": \"date\"\n"
             + "        }\n"
             + "    }\n"
             + "}", XContentType.JSON);

@@ -1,11 +1,13 @@
 package com.kkrepo.blog.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.kkrepo.blog.common.Constant;
 import com.kkrepo.blog.common.enums.CommentSortEnum;
 import com.kkrepo.blog.common.enums.CommonStateEnum;
 import com.kkrepo.blog.common.model.ArticleModel;
 import com.kkrepo.blog.common.util.AddressUtil;
 import com.kkrepo.blog.common.util.IPUtil;
+import com.kkrepo.blog.document.BlogDocument;
 import com.kkrepo.blog.domain.Comment;
 import com.kkrepo.blog.manager.ArticleManager;
 import com.kkrepo.blog.manager.CommentManager;
@@ -42,10 +44,12 @@ public class BlogController {
     private static final String INDEX_PAGE_PATH = "site/index";
     private static final String CATEGORY_PAGE_PATH = "site/category";
     private static final String TAG_PAGE_PATH = "site/tag";
+    private static final String AUTHOR_PAGE_PATH = "site/author";
     private static final String PAGE_DETAIL = "site/page/article";
     private static final String PAGE_ARCHIVES = "site/page/archives";
     private static final String PAGE_LINKS = "site/page/links";
     private static final String PAGE_OBOUT = "site/page/about";
+    private static final String PAGE_SEARCH = "site/page/search";
 
     @Autowired
     private ArticleManager articleManager;
@@ -95,6 +99,17 @@ public class BlogController {
         pageNum = pageNum == null ? 1 : pageNum;
         articleManager.queryPageByTag(tagId,pageNum, Constant.DEFAULT_PAGE_LIMIT, model);
         return TAG_PAGE_PATH;
+    }
+
+    @RequestMapping({"/author/{author}", "/author/{author}/{pageNum}"})
+    public String author(
+        @PathVariable(required = true) String author,
+        @PathVariable(required = false) Integer pageNum,
+        Model model
+    ) {
+        pageNum = pageNum == null ? 1 : pageNum;
+        articleManager.queryPageByAuthor(author,pageNum, Constant.DEFAULT_PAGE_LIMIT, model);
+        return AUTHOR_PAGE_PATH;
     }
 
     @RequestMapping("/article/{id}")
@@ -165,14 +180,17 @@ public class BlogController {
         return ResultWrap.ok(1);
     }
 
-    @GetMapping("/api/search/{keyword}")
-    @ResponseBody
-    public R search(
-        @PathVariable("keyword") String keyword,
-        @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-        @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize
+    @GetMapping("/search")
+    public String search(
+        @RequestParam(value = "keyword") String keyword,
+        @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+        @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+        Model model
     ) {
-        return ResultWrap.ok(esBlogService.searchByPage(keyword, pageNum, pageSize));
+        PageInfo<BlogDocument> pageInfo = esBlogService.searchByPage(keyword, pageNum, pageSize);
+        model.addAttribute(Constant.INDEX_PAGEINFO, pageInfo);
+        model.addAttribute("keyword", keyword);
+        return PAGE_SEARCH;
     }
 
 }

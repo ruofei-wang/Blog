@@ -11,6 +11,7 @@
     <result column="origin" jdbcType="VARCHAR" property="origin" />
     <result column="state" jdbcType="VARCHAR" property="state" />
     <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="pv" jdbcType="INTEGER" property="pv" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -77,7 +78,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
     update_time
   </sql>
   <sql id="Blob_Column_List">
@@ -146,7 +147,7 @@
         </foreach>
       </when>
       <otherwise>
-        id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+        id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
           update_time, content, content_md
       </otherwise>
     </choose>
@@ -180,7 +181,7 @@
         </foreach>
       </when>
       <otherwise>
-        id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+        id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
           update_time, content, content_md
       </otherwise>
     </choose>
@@ -197,17 +198,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kkrepo.blog.domain.Article" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.kkrepo.blog.domain.Article">
     insert into tb_article (id, title, description, 
       cover, author, type, 
       origin, state, publish_time, 
-      create_time, update_time, content, 
-      content_md)
+      pv, create_time, update_time, 
+      content, content_md)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{cover,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{origin,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}, 
-      #{contentMd,jdbcType=LONGVARCHAR})
+      #{pv,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR}, #{contentMd,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="map">
     <!--
@@ -250,6 +251,9 @@
           </if>
           <if test="record.publishTime != null">
             publish_time,
+          </if>
+          <if test="record.pv != null">
+            pv,
           </if>
           <if test="record.createTime != null">
             create_time,
@@ -302,6 +306,9 @@
           </if>
           <if test="record.publishTime != null">
             #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.pv != null">
+            #{record.pv,jdbcType=INTEGER},
           </if>
           <if test="record.createTime != null">
             #{record.createTime,jdbcType=TIMESTAMP},
@@ -368,6 +375,9 @@
           <if test="record.publishTime != null">
             publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
           </if>
+          <if test="record.pv != null">
+            pv = #{record.pv,jdbcType=INTEGER},
+          </if>
           <if test="record.createTime != null">
             create_time = #{record.createTime,jdbcType=TIMESTAMP},
           </if>
@@ -398,6 +408,7 @@
       origin = #{record.origin,jdbcType=VARCHAR},
       state = #{record.state,jdbcType=VARCHAR},
       publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      pv = #{record.pv,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR},
@@ -417,6 +428,7 @@
       origin = #{record.origin,jdbcType=VARCHAR},
       state = #{record.state,jdbcType=VARCHAR},
       publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      pv = #{record.pv,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -463,6 +475,9 @@
           <if test="record.publishTime != null">
             publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
           </if>
+          <if test="record.pv != null">
+            pv = #{record.pv,jdbcType=INTEGER},
+          </if>
           <if test="record.createTime != null">
             create_time = #{record.createTime,jdbcType=TIMESTAMP},
           </if>
@@ -490,6 +505,7 @@
       origin = #{origin,jdbcType=VARCHAR},
       state = #{state,jdbcType=VARCHAR},
       publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      pv = #{pv,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR},
@@ -506,6 +522,7 @@
       origin = #{origin,jdbcType=VARCHAR},
       state = #{state,jdbcType=VARCHAR},
       publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      pv = #{pv,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
@@ -560,7 +577,7 @@
         </foreach>
       </when>
       <otherwise>
-        id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+        id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
           update_time, content, content_md
       </otherwise>
     </choose>
@@ -580,15 +597,15 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into tb_article
-    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    (id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
       update_time, content, content_md)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.id,jdbcType=BIGINT}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
         #{item.cover,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
         #{item.origin,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.publishTime,jdbcType=TIMESTAMP}, 
-        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.content,jdbcType=LONGVARCHAR}, 
-        #{item.contentMd,jdbcType=LONGVARCHAR})
+        #{item.pv,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
+        #{item.content,jdbcType=LONGVARCHAR}, #{item.contentMd,jdbcType=LONGVARCHAR})
     </foreach>
   </insert>
   <insert id="batchInsertSelective" parameterType="map">
@@ -632,6 +649,9 @@
         </if>
         <if test="'publish_time'.toString() == column.value">
           #{item.publishTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'pv'.toString() == column.value">
+          #{item.pv,jdbcType=INTEGER}
         </if>
         <if test="'create_time'.toString() == column.value">
           #{item.createTime,jdbcType=TIMESTAMP}
@@ -691,6 +711,9 @@
           <if test="record.publishTime != null">
             publish_time,
           </if>
+          <if test="record.pv != null">
+            pv,
+          </if>
           <if test="record.createTime != null">
             create_time,
           </if>
@@ -743,6 +766,9 @@
           <if test="record.publishTime != null">
             #{record.publishTime,jdbcType=TIMESTAMP},
           </if>
+          <if test="record.pv != null">
+            #{record.pv,jdbcType=INTEGER},
+          </if>
           <if test="record.createTime != null">
             #{record.createTime,jdbcType=TIMESTAMP},
           </if>
@@ -793,6 +819,9 @@
           </if>
           <if test="record.publishTime != null">
             publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.pv != null">
+            pv = #{record.pv,jdbcType=INTEGER},
           </if>
           <if test="record.createTime != null">
             create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -853,6 +882,9 @@
           <if test="record.publishTime != null">
             publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
           </if>
+          <if test="record.pv != null">
+            pv = #{record.pv,jdbcType=INTEGER},
+          </if>
           <if test="record.createTime != null">
             create_time = #{record.createTime,jdbcType=TIMESTAMP},
           </if>
@@ -908,6 +940,9 @@
           <if test="record.publishTime != null">
             publish_time,
           </if>
+          <if test="record.pv != null">
+            pv,
+          </if>
           <if test="record.createTime != null">
             create_time,
           </if>
@@ -960,6 +995,9 @@
           <if test="record.publishTime != null">
             #{record.publishTime,jdbcType=TIMESTAMP},
           </if>
+          <if test="record.pv != null">
+            #{record.pv,jdbcType=INTEGER},
+          </if>
           <if test="record.createTime != null">
             #{record.createTime,jdbcType=TIMESTAMP},
           </if>
@@ -990,13 +1028,14 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into tb_article
-    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    (id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
       update_time)
     values
     (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{cover,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{origin,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{pv,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
     on duplicate key update 
     id = #{id,jdbcType=BIGINT}, 
     title = #{title,jdbcType=VARCHAR}, 
@@ -1007,6 +1046,7 @@
     origin = #{origin,jdbcType=VARCHAR}, 
     state = #{state,jdbcType=VARCHAR}, 
     publish_time = #{publishTime,jdbcType=TIMESTAMP}, 
+    pv = #{pv,jdbcType=INTEGER}, 
     create_time = #{createTime,jdbcType=TIMESTAMP}, 
     update_time = #{updateTime,jdbcType=TIMESTAMP}
   </insert>
@@ -1027,6 +1067,7 @@
     origin = #{record.origin,jdbcType=VARCHAR}, 
     state = #{record.state,jdbcType=VARCHAR}, 
     publish_time = #{record.publishTime,jdbcType=TIMESTAMP}, 
+    pv = #{record.pv,jdbcType=INTEGER}, 
     create_time = #{record.createTime,jdbcType=TIMESTAMP}, 
     update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -1034,13 +1075,13 @@
     </if>
     ;
     insert into tb_article
-    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    (id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
       update_time)
     select
     #{record.id,jdbcType=BIGINT}, #{record.title,jdbcType=VARCHAR}, #{record.description,jdbcType=VARCHAR}, 
       #{record.cover,jdbcType=VARCHAR}, #{record.author,jdbcType=VARCHAR}, #{record.type,jdbcType=INTEGER}, 
       #{record.origin,jdbcType=VARCHAR}, #{record.state,jdbcType=VARCHAR}, #{record.publishTime,jdbcType=TIMESTAMP}, 
-      #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP}
+      #{record.pv,jdbcType=INTEGER}, #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP}
       
     from dual where not exists
     (
@@ -1057,14 +1098,14 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into tb_article
-    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    (id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
       update_time, content, content_md)
     values
     (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{cover,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{origin,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}, 
-      #{contentMd,jdbcType=LONGVARCHAR})
+      #{pv,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR}, #{contentMd,jdbcType=LONGVARCHAR})
     on duplicate key update 
     id = #{id,jdbcType=BIGINT}, 
     title = #{title,jdbcType=VARCHAR}, 
@@ -1075,6 +1116,7 @@
     origin = #{origin,jdbcType=VARCHAR}, 
     state = #{state,jdbcType=VARCHAR}, 
     publish_time = #{publishTime,jdbcType=TIMESTAMP}, 
+    pv = #{pv,jdbcType=INTEGER}, 
     create_time = #{createTime,jdbcType=TIMESTAMP}, 
     update_time = #{updateTime,jdbcType=TIMESTAMP}, 
     content = #{content,jdbcType=LONGVARCHAR}, 
@@ -1097,6 +1139,7 @@
     origin = #{record.origin,jdbcType=VARCHAR}, 
     state = #{record.state,jdbcType=VARCHAR}, 
     publish_time = #{record.publishTime,jdbcType=TIMESTAMP}, 
+    pv = #{record.pv,jdbcType=INTEGER}, 
     create_time = #{record.createTime,jdbcType=TIMESTAMP}, 
     update_time = #{record.updateTime,jdbcType=TIMESTAMP}, 
     content = #{record.content,jdbcType=LONGVARCHAR}, 
@@ -1106,13 +1149,13 @@
     </if>
     ;
     insert into tb_article
-    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    (id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
       update_time, content, content_md)
     select
     #{record.id,jdbcType=BIGINT}, #{record.title,jdbcType=VARCHAR}, #{record.description,jdbcType=VARCHAR}, 
       #{record.cover,jdbcType=VARCHAR}, #{record.author,jdbcType=VARCHAR}, #{record.type,jdbcType=INTEGER}, 
       #{record.origin,jdbcType=VARCHAR}, #{record.state,jdbcType=VARCHAR}, #{record.publishTime,jdbcType=TIMESTAMP}, 
-      #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP}, 
+      #{record.pv,jdbcType=INTEGER}, #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP}, 
       #{record.content,jdbcType=LONGVARCHAR}, #{record.contentMd,jdbcType=LONGVARCHAR}
       
     from dual where not exists
@@ -1165,6 +1208,9 @@
         <if test="'publish_time'.toString() == column.value">
           #{item.publishTime,jdbcType=TIMESTAMP}
         </if>
+        <if test="'pv'.toString() == column.value">
+          #{item.pv,jdbcType=INTEGER}
+        </if>
         <if test="'create_time'.toString() == column.value">
           #{item.createTime,jdbcType=TIMESTAMP}
         </if>
@@ -1192,14 +1238,15 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into tb_article
-    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    (id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
       update_time)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.id,jdbcType=BIGINT}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
         #{item.cover,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
         #{item.origin,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.publishTime,jdbcType=TIMESTAMP}, 
-        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
+        #{item.pv,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
+        )
     </foreach>
     on duplicate key update 
     id = values(id),
@@ -1211,6 +1258,7 @@
     origin = values(origin),
     state = values(state),
     publish_time = values(publish_time),
+    pv = values(pv),
     create_time = values(create_time),
     update_time = values(update_time)
   </insert>
@@ -1221,15 +1269,15 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into tb_article
-    (id, title, description, cover, author, type, origin, state, publish_time, create_time, 
+    (id, title, description, cover, author, type, origin, state, publish_time, pv, create_time, 
       update_time, content, content_md)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.id,jdbcType=BIGINT}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
         #{item.cover,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
         #{item.origin,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.publishTime,jdbcType=TIMESTAMP}, 
-        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.content,jdbcType=LONGVARCHAR}, 
-        #{item.contentMd,jdbcType=LONGVARCHAR})
+        #{item.pv,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
+        #{item.content,jdbcType=LONGVARCHAR}, #{item.contentMd,jdbcType=LONGVARCHAR})
     </foreach>
     on duplicate key update 
     id = values(id),
@@ -1241,6 +1289,7 @@
     origin = values(origin),
     state = values(state),
     publish_time = values(publish_time),
+    pv = values(pv),
     create_time = values(create_time),
     update_time = values(update_time),
     content = values(content),

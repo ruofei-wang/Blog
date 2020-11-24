@@ -133,4 +133,22 @@ public class ArticleService {
         pageInfo.setPages((int) Math.ceil((double) total/pageSize));
         return pageInfo;
     }
+
+    public PageInfo<Article> queryPageByAuthor(String author, int pageNum, int pageSize, CommonStateEnum commonStateEnum) {
+        PageHelper.startPage(pageNum, pageSize);
+        ArticleExample example = new ArticleExample()
+            .createCriteria()
+            .andAuthorEqualTo(author)
+            .andStateEqualTo(commonStateEnum.getCode())
+            .example()
+            .orderBy(Column.id.desc());
+        Column[] columns = new Column[]{
+            Column.id,
+            Column.title,
+            Column.cover,
+            Column.description,
+        };
+        List<Article> articleList = mapper.selectByExampleSelective(example, columns);
+        return new PageInfo<>(articleList);
+    }
 }

@@ -25,6 +25,8 @@ public class Article {
 
     private Date publishTime;
 
+    private Integer pv;
+
     private Date createTime;
 
     private Date updateTime;
@@ -50,6 +52,7 @@ public class Article {
         origin("origin", "origin", "VARCHAR", false),
         state("state", "state", "VARCHAR", false),
         publishTime("publish_time", "publishTime", "TIMESTAMP", false),
+        pv("pv", "pv", "INTEGER", false),
         createTime("create_time", "createTime", "TIMESTAMP", false),
         updateTime("update_time", "updateTime", "TIMESTAMP", false),
         content("content", "content", "LONGVARCHAR", false),

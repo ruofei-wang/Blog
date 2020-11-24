@@ -11,6 +11,7 @@ CREATE TABLE tb_article
     origin       varchar(100)           DEFAULT NULL COMMENT '来源',
     state        varchar(100)  NOT NULL DEFAULT '' COMMENT '状态（0: 初始1:已发布 2:已删除）',
     publish_time datetime               DEFAULT NULL COMMENT '发布时间',
+    pv           int(11)       NOT NULL DEFAULT '0' COMMENT '浏览量',
     create_time  timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time  timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (id)

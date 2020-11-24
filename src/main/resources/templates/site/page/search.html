@@ -2,41 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Category - Blog</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title th:text="'搜索:' + ${keyword}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" data-th-href="@{/site/css/style.min.css}"/>
 </head>
-<body class="bg-grey">
+<body>
 <div th:replace="site/layout/header"></div>
-<div class="main-content index-page clearfix ">
-    <div class="post-lists">
-        <div class="post-lists-body">
-            <div class="post-list-item" th:each="row : ${pageInfo.list}">
-                <div class="post-list-item-container">
-                    <div class="item-thumb bg-deepgrey"
-                         th:style="'background-image:url(' + ${row.cover} + ');'"></div>
-                    <a th:href="'/article/' + ${row.id}">
-                        <div class="item-desc">
-                            <p th:text="${row.description}"></p>
-                        </div>
-                    </a>
-                    <div class="item-slant reverse-slant bg-deepgrey"></div>
-                    <div class="item-slant"></div>
-                    <div class="item-label">
-                        <div class="item-title">
-                            <a th:href="'/article/' + ${row.id}" th:text="${row.title}"></a>
-                        </div>
-                        <div class="item-meta clearfix">
-                            <div class="item-meta-ico bg-ico-book" style="background: url(/site/images/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
-                            <div class="item-meta-cat">
-                                <a th:href="'/category/' + ${row.category.id}" th:text="${row.category.name}"></a>
+<div class="main-content common-page clearfix ">
+    <div class="common-item">
+        <div class="common-title">
+            Search : <span th:text="${keyword}"></span>
+        </div>
+        <div class="post-lists">
+            <div class="post-lists-body">
+                <div th:if="${#lists.size(pageInfo.list)} gt 0">
+                    <div class="post-list-item" th:each="row : ${pageInfo.list}">
+                        <div class="post-list-item-container bg-<@fun.randBgColor/>">
+                            <div class="item-label bg-<@fun.randBgColor/>">
+                                <div class="item-title"><a th:href="'/article/' + ${row.id}" th:text="${row.title}"></a></div>
+                                <div class="item-meta clearfix">
+                                    <div class="item-meta-ico bg-ico-<@fun.randBgIco/>" style="background: url(site/images/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
+                                    <div class="item-meta-date" th:text="${#dates.format(row.createDate, 'yyyy-MM-dd')}"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div th:if="${#lists.size(pageInfo.list)} eq 0">
+                    <div class="post-list-item">没有找到内容,请换别的关键字进行检索</div>
                 </div>
             </div>
         </div>
@@ -55,7 +52,6 @@
         </ol>
     </div>
 </div>
-
 <div th:replace="site/layout/footer"></div>
 </body>
 </html>

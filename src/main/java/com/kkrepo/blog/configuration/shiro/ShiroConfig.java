@@ -73,6 +73,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/funny.ico", "anon");
         filterChainDefinitionMap.put("/category/**", "anon");
         filterChainDefinitionMap.put("/tag/**", "anon");
+        filterChainDefinitionMap.put("/author/**", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/site/**", "anon");
         filterChainDefinitionMap.put("/error/**", "anon");
@@ -85,7 +86,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/css/**", "anon");
         filterChainDefinitionMap.put("/admin/img/**", "anon");
         filterChainDefinitionMap.put("/api/comment/**", "anon");
-        filterChainDefinitionMap.put("/api/search/**", "anon");
+        filterChainDefinitionMap.put("/search/**", "anon");
 
         filterChainDefinitionMap.put("/**", "jwt");
         filter.setFilterChainDefinitionMap(filterChainDefinitionMap);

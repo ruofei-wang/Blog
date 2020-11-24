@@ -58,7 +58,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-          connectionURL="jdbc:mysql://127.0.0.1:3306/tumo?useUnicode=true"
+          connectionURL="jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true"
           userId="root"
           password="root">
         </jdbcConnection>

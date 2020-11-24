@@ -11,29 +11,7 @@
     <link rel="stylesheet" data-th-href="@{/site/css/style.min.css}"/>
 </head>
 <body>
-<!--炫彩三角纽带效果-->
-<canvas id="silk" style="position: absolute;z-index: -99;"></canvas>
-<header id="header" class="header bg-white">
-    <div class="navbar-container">
-        <a href="/" class="navbar-logo">
-            <img th:src="@{/site/images/logo.png}" alt="Blog">
-        </a>
-        <div class="navbar-menu">
-            <a href="/archives">Archives</a>
-            <a class="current" href="/links">Links</a>
-            <a href="/about">About</a>
-        </div>
-        <div class="navbar-mobile-menu" onclick="">
-            <span class="icon-menu cross"><span class="middle"></span></span>
-            <ul>
-                <li><a href="/archives">Archives</a></li>
-                <li><a class="current" href="/links">Links</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </div>
-    </div>
-</header>
-
+<div th:replace="site/layout/header"></div>
 <article class="main-content page-page">
     <div class="post-header">
         <h1 class="post-title" itemprop="name headline"> Links </h1>

@@ -93,4 +93,13 @@ public class CommentService {
         }
         return chartList;
     }
+
+    public long countByArticleId(Long articleId) {
+        CommentExample example = new CommentExample()
+            .createCriteria()
+            .andArticleIdEqualTo(articleId)
+            .andStateEqualTo(CommonStateEnum.PUBLISHED.getCode())
+            .example();
+        return mapper.countByExample(example);
+    }
 }

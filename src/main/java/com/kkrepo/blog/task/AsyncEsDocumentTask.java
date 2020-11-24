@@ -7,6 +7,7 @@ import com.kkrepo.blog.domain.Article;
 import com.kkrepo.blog.domain.Category;
 import com.kkrepo.blog.domain.Tag;
 import com.kkrepo.blog.service.CategoryService;
+import com.kkrepo.blog.service.CommentService;
 import com.kkrepo.blog.service.EsBlogService;
 import com.kkrepo.blog.service.TagService;
 import java.util.List;
@@ -30,6 +31,8 @@ public class AsyncEsDocumentTask {
     private CategoryService categoryService;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private CommentService commentService;
 
     @Async
     public void updateBlogDocumentByArticle(Article article) {
@@ -51,6 +54,7 @@ public class AsyncEsDocumentTask {
     private BlogDocument coverToDocument(Article x) {
         Category category = categoryService.queryByArticle(x.getId());
         List<Tag> tags = tagService.queryByArticleId(x.getId());
+        long comments = commentService.countByArticleId(x.getId());
         return BlogDocument.builder()
             .id(x.getId() + "")
             .title(x.getTitle())
@@ -59,6 +63,9 @@ public class AsyncEsDocumentTask {
             .category(category.getName())
             .tags(tags.stream().map(t -> t.getName()).collect(Collectors.toList()))
             .content(Constant.htmlRegex.matcher(x.getContent()).replaceAll(""))
+            .pv(x.getPv())
+            .createDate(x.getCreateTime().getTime())
+            .comments(comments)
             .build();
     }
 

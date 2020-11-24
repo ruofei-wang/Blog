@@ -93,6 +93,19 @@ public class ArticleManager {
         buildArticleModePage(articlePageInfo, model);
     }
 
+    /**
+     * 按照作者获取数据
+     * @param author
+     * @param pageNum
+     * @param pageSize
+     * @param model
+     */
+    public void queryPageByAuthor(String author, int pageNum, int pageSize, Model model) {
+        PageInfo<Article> articlePageInfo = articleService.queryPageByAuthor(author, pageNum, pageSize, CommonStateEnum.PUBLISHED);
+        model.addAttribute("author", author);
+        buildArticleModePage(articlePageInfo, model);
+    }
+
     public void buildArticleModePage(PageInfo<Article> articlePageInfo, Model model) {
         PageInfo<ArticleModel> pageInfo = new PageInfo<>();
         BeanUtils.copyProperties(articlePageInfo, pageInfo, "list");

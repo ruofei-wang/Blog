@@ -43,4 +43,6 @@ public class ArticleModel {
     private Category category;
 
     private List<Tag> tags;
+
+    private Integer pv;
 }
