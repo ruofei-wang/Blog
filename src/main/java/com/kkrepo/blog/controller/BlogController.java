@@ -184,10 +184,9 @@ public class BlogController {
     public String search(
         @RequestParam(value = "keyword") String keyword,
         @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-        @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
         Model model
     ) {
-        PageInfo<BlogDocument> pageInfo = esBlogService.searchByPage(keyword, pageNum, pageSize);
+        PageInfo<BlogDocument> pageInfo = esBlogService.searchByPage(keyword, pageNum);
         model.addAttribute(Constant.INDEX_PAGEINFO, pageInfo);
         model.addAttribute("keyword", keyword);
         return PAGE_SEARCH;

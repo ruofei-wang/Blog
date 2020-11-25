@@ -91,4 +91,9 @@ public interface Constant {
      */
     String REGEX_HTML="<[^>]+>";
     Pattern htmlRegex = Pattern.compile(REGEX_HTML, Pattern.CASE_INSENSITIVE);
+
+    /**
+     * 搜索页面默认每页展示数量
+     */
+    int DEFAULT_SEARCH_PAGE_LIMIT = 10;
 }

@@ -159,6 +159,11 @@
         }
 
         function o(e) {
+            // 修复搜索框点击消失问题
+            if ('INPUT' == e.target.nodeName) {
+                return ;
+            }
+
             var a = t.createElement("div");
             a.className = "heart", s.push({el: a, x: e.clientX - 5, y: e.clientY - 5, scale: 1, alpha: 1, color: c()}), t.body.appendChild(a)
         }
@@ -183,6 +188,13 @@
             setTimeout(e, 1e3 / 60)
         }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
     }(window, document);
+
+    function sleep(delay) {
+        var start = (new Date()).getTime();
+        while ((new Date()).getTime() - start < delay) {
+            continue;
+        }
+    }
 </script>
 
 <!--右下角的小姑娘  样式style.min.css-->

@@ -50,12 +50,12 @@ public class EsBlogService {
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
-    public PageInfo<BlogDocument> searchByPage(String keyword, int pageNum, int pageSize) {
+    public PageInfo<BlogDocument> searchByPage(String keyword, int pageNum) {
         PageInfo<BlogDocument> pageInfo = new PageInfo<>();
         SearchRequest searchRequest = new SearchRequest(Constant.ELASTIC_SEARCH_INDEX);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.from((pageNum - 1) * pageSize);
-        searchSourceBuilder.size(pageSize);
+        searchSourceBuilder.from((pageNum - 1) * Constant.DEFAULT_SEARCH_PAGE_LIMIT);
+        searchSourceBuilder.size(Constant.DEFAULT_SEARCH_PAGE_LIMIT);
         // 建立 bool 查询
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         boolQueryBuilder.should(QueryBuilders.matchQuery("title", keyword));
@@ -78,17 +78,19 @@ public class EsBlogService {
         try {
             searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
-            log.error("EsBlogService searchByPage error! keyword:{} | pageNum:{} | pageSize:{} | e:{}", keyword, pageNum, pageSize, e);
+            log.error("EsBlogService searchByPage error! keyword:{} | pageNum:{} | e:{}", keyword, pageNum, e);
             return pageInfo;
         }
         if (!RestStatus.OK.equals(searchResponse.status())) {
-            log.error("EsBlogService searchByPage error! keyword:{} | pageNum:{} | pageSize:{} | searchResponse:{}", keyword, pageNum, pageSize, JsonMapper.toJsonNotNull(searchResponse));
+            log.error("EsBlogService searchByPage error! keyword:{} | pageNum:{} | searchResponse:{}", keyword, pageNum, JsonMapper.toJsonNotNull(searchResponse));
             return pageInfo;
         }
         SearchHit[] searchHits = searchResponse.getHits().getHits();
         pageInfo.setPageNum(pageNum);
         pageInfo.setPageSize(searchHits.length);
-        pageInfo.setTotal(searchResponse.getHits().getTotalHits().value);
+        long total = searchResponse.getHits().getTotalHits().value;
+        pageInfo.setTotal(total);
+        pageInfo.setPages((int) Math.ceil((double) total / Constant.DEFAULT_SEARCH_PAGE_LIMIT));
         pageInfo.setList(Arrays.stream(searchHits).map(x -> coverToDocument(x)).collect(Collectors.toList()));
         return pageInfo;
     }

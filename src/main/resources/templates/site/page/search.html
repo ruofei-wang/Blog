@@ -9,6 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" data-th-href="@{/site/css/style.min.css}"/>
+    <style type="text/css">
+        .common-page .post-list-item {width: 100%}
+        .common-subtitle {height: 30px; line-height: 30px; font-size: 12px; color: #999;padding-left: 14px;}
+        .search-item-title a {color: rebeccapurple}
+        .search-item-title a:hover {text-decoration: underline}
+        .search-item-meta {text-align: left}
+        .search-item-meta-description {width: 100%;font-size: 12px;margin-top: 5px;}
+        .search-item-meta-bottom {width: 100%; height: 30px; line-height: 30px;}
+        .search-item-meta-bottom span {font-size: 12px;position: relative;padding-right: 16px;text-align: left;color: #999AAA;}
+        .search-item-meta-bottom a {height: 30px; line-height: 30px;color: #999AAA;}
+        .search-item-icon {background-size: 32px 48px;width: 16px;height: 16px;background-repeat: no-repeat;margin-right: 6px;background-image: url(data:image/png;base64,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)}
+        .icon-pv {background-position: 0 -32px;}
+        .icon-comments {background-position: 0 -16px;}
+    </style>
 </head>
 <body>
 <div th:replace="site/layout/header"></div>
@@ -17,16 +31,32 @@
         <div class="common-title">
             Search : <span th:text="${keyword}"></span>
         </div>
+        <div class="common-subtitle">
+            为您找到相关结果约 <span th:text="${pageInfo.total}"></span> 个
+        </div>
         <div class="post-lists">
             <div class="post-lists-body">
                 <div th:if="${#lists.size(pageInfo.list)} gt 0">
                     <div class="post-list-item" th:each="row : ${pageInfo.list}">
-                        <div class="post-list-item-container bg-<@fun.randBgColor/>">
-                            <div class="item-label bg-<@fun.randBgColor/>">
-                                <div class="item-title"><a th:href="'/article/' + ${row.id}" th:text="${row.title}"></a></div>
-                                <div class="item-meta clearfix">
-                                    <div class="item-meta-ico bg-ico-<@fun.randBgIco/>" style="background: url(site/images/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
-                                    <div class="item-meta-date" th:text="${#dates.format(row.createDate, 'yyyy-MM-dd')}"></div>
+                        <div class="post-list-item-container">
+                            <div class="search-item-label">
+                                <div class="search-item-title"><a th:href="'/article/' + ${row.id}" th:text="${row.title}"></a></div>
+                                <div class="search-item-meta clearfix">
+                                    <div class="search-item-meta-description" th:text="${#strings.abbreviate(row.description, 200)}"></div>
+                                    <div class="search-item-meta-bottom">
+                                        <span class="search-item-meta-create-date" th:text="${#dates.format(row.createDate, 'yyyy-MM-dd')}"></span>
+                                        <span class="search-item-meta-author">
+                                            <a th:href="'/author/' + ${row.author}" th:text="${row.author}"></a>
+                                        </span>
+                                        <span class="search-item-meta-pv">
+                                            <span class="search-item-icon icon-pv"></span>
+                                            <span class="search-item-num" th:text="${row.pv}"></span>
+                                        </span>
+                                        <span class="search-item-meta-comments">
+                                            <span class="search-item-icon icon-comments"></span>
+                                            <span class="search-item-num" th:text="${row.comments}"></span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -41,13 +71,13 @@
     <div class="lists-navigator clearfix">
         <ol class="page-navigator">
             <li th:if="${pageInfo.pageNum} > 1" class="prev">
-                <a th:href="'/category/' + ${pageInfo.navigatePages} + '/' + (${pageInfo.pageNum} - 1)">←</a>
+                <a th:href="'/search?keyword=' + ${keyword} + '&pageNum=' + (${pageInfo.pageNum} - 1)">←</a>
             </li>
             <li th:each="i : ${#numbers.sequence(1, pageInfo.pages)}" th:class="${pageInfo.pageNum} == ${i} ? 'current' : ''">
-                <a th:href="'/category/' + ${pageInfo.navigatePages} + '/' + ${i}">[[${i}]]</a>
+                <a th:href="'/search?keyword=' + ${keyword} + '&pageNum=' + ${i}">[[${i}]]</a>
             </li>
             <li th:if="${pageInfo.pageNum} < ${pageInfo.pages}" class="next">
-                <a th:href="'/category/' + ${pageInfo.navigatePages} + '/' + (${pageInfo.pageNum} + 1)">→</a>
+                <a th:href="'/search?keyword=' + ${keyword} + '&pageNum=' + (${pageInfo.pageNum} + 1)">→</a>
             </li>
         </ol>
     </div>
