@@ -87,9 +87,9 @@ public interface Constant {
     String ELASTIC_SEARCH_INDEX = "blog";
 
     /**
-     * 定义HTML标签的正则表达式
+     * 定义HTML标签及空格换行等字符的正则表达式
      */
-    String REGEX_HTML="<[^>]+>";
+    String REGEX_HTML="<[^>]+>|\\s*|\t|\r|\n";
     Pattern htmlRegex = Pattern.compile(REGEX_HTML, Pattern.CASE_INSENSITIVE);
 
     /**
