@@ -65,7 +65,8 @@
 |   Redis    | 2.3.0.RELEASE  | spring-boot-starter-data-redis |
 |    Vue     |    v2.6.11     |      后台管理系统前端使用      |
 | thymeleaf  | 3.0.11.RELEASE |            Blog页面            |
-| apollo  | 1.7.1 |            配置中心            |
+| apollo     | 1.7.1          |            配置中心            |
+| ElasticSearch | 7.10.0      |            全文搜索             |
 
 ## 快速开始(本地运行)
 
