@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * @author WangRuofei
  * @date 2020-11-30 9:21 下午
- * @copyright (c) 2020, bitmain.com All Rights Reserved
+ * @copyright (c) 2020, kkrepo.com All Rights Reserved
  */
 @Data
 @Builder
