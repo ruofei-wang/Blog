@@ -4,8 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.kkrepo.blog.common.Constant;
 import com.kkrepo.blog.common.util.JsonMapper;
 import com.kkrepo.blog.document.BlogDocument;
+import com.kkrepo.blog.document.ItemModel;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,7 +36,6 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,13 +66,6 @@ public class EsBlogService {
         boolQueryBuilder.should(QueryBuilders.matchQuery("category", keyword));
         boolQueryBuilder.should(QueryBuilders.matchQuery("content", keyword));
         searchSourceBuilder.query(boolQueryBuilder);
-        // 高亮显示
-        HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.requireFieldMatch(false);
-        highlightBuilder.field("title");
-        highlightBuilder.preTags("<font color='red'>");
-        highlightBuilder.postTags("</font>");
-        searchSourceBuilder.highlighter(highlightBuilder);
         // 执行搜索
         searchRequest.source(searchSourceBuilder);
         SearchResponse searchResponse = null;
@@ -103,13 +97,14 @@ public class EsBlogService {
      */
     private BlogDocument coverToDocument(SearchHit x) {
         Map<String, Object> sourceMap = x.getSourceAsMap();
+        HashMap<String, Object> category = (HashMap<String, Object>) sourceMap.get("category");
         return BlogDocument.builder()
             .id(x.getId())
             .title((String) sourceMap.get("title"))
             .description((String) sourceMap.get("description"))
             .author((String) sourceMap.get("author"))
-            .tags((List<String>) sourceMap.get("tags"))
-            .category((String) sourceMap.get("category"))
+            .tags((List<ItemModel>) sourceMap.get("tags"))
+            .category(new ItemModel((Integer) category.get("id"), (String) category.get("name")))
             .pv((Integer) sourceMap.get("pv"))
             .createDate((Long) sourceMap.get("createDate"))
             .comments(Long.valueOf(((Integer) sourceMap.get("comments")).longValue()))
@@ -159,11 +154,26 @@ public class EsBlogService {
             + "            \"analyzer\": \"ik_max_word\"\n"
             + "        },\n"
             + "        \"tags\": {\n"
-            + "            \"type\": \"keyword\"\n"
+            + "             \"properties\": {\n"
+            + "                 \"id\": {\n"
+            + "                     \"type\": \"long\"\n"
+            + "                 },\n"
+            + "                 \"name\": {\n"
+            + "                     \"type\": \"text\",\n"
+            + "                     \"analyzer\": \"ik_max_word\"\n"
+            + "                 }\n"
+            + "             }\n"
             + "        },\n"
             + "        \"category\": {\n"
-            + "            \"type\": \"text\",\n"
-            + "            \"analyzer\": \"ik_max_word\"\n"
+            + "             \"properties\": {\n"
+            + "                 \"id\": {\n"
+            + "                     \"type\": \"long\"\n"
+            + "                 },\n"
+            + "                 \"name\": {\n"
+            + "                     \"type\": \"text\",\n"
+            + "                     \"analyzer\": \"ik_max_word\"\n"
+            + "                 }\n"
+            + "             }\n"
             + "        },\n"
             + "        \"content\": {\n"
             + "            \"type\": \"text\",\n"

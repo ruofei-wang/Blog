@@ -2,6 +2,7 @@ package com.kkrepo.blog.schedule;
 
 import com.kkrepo.blog.common.Constant;
 import com.kkrepo.blog.document.BlogDocument;
+import com.kkrepo.blog.document.ItemModel;
 import com.kkrepo.blog.domain.Article;
 import com.kkrepo.blog.domain.Category;
 import com.kkrepo.blog.domain.Tag;
@@ -78,8 +79,8 @@ public class ElasticSearchUpsertSchedule {
             .title(x.getTitle())
             .author(x.getAuthor())
             .description(x.getDescription())
-            .category(category.getName())
-            .tags(tags.stream().map(t -> t.getName()).collect(Collectors.toList()))
+            .category(ItemModel.builder().id(category.getId()).name(category.getName()).build())
+            .tags(tags.stream().map(t -> new ItemModel(t.getId(), t.getName())).collect(Collectors.toList()))
             .content(Constant.htmlRegex.matcher(x.getContent()).replaceAll(""))
             .pv(x.getPv())
             .createDate(x.getCreateTime().getTime())

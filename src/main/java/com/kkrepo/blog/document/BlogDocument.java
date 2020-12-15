@@ -25,9 +25,9 @@ public class BlogDocument {
 
     private String author;
 
-    private List<String> tags;
+    private List<ItemModel> tags;
 
-    private String category;
+    private ItemModel category;
 
     private String content;
 
