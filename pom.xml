@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<mybatis.generator.plugin.version>1.2.12</mybatis.generator.plugin.version>
-		<shiro.version>1.5.3</shiro.version>
+		<shiro.version>1.7.0</shiro.version>
 		<shiro.cache.version>1.5.3</shiro.cache.version>
 		<aspectj.version>1.9.5</aspectj.version>
 		<oss.version>3.10.2</oss.version>
